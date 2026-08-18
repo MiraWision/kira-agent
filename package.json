@@ -1,0 +1,33 @@
+{
+  "name": "kira-knowledge",
+  "version": "0.1.0",
+  "description": "KIRA — Knowledge Interface for Reliable Answers. Turns your codebase into a maintained product knowledge base your users can ask questions against.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "kira": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.117.1",
+    "yaml": "^2.6.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
