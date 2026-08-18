@@ -11,6 +11,10 @@ export const AUDIENCES = ['end_user', 'operator', 'developer'] as const;
 export const audienceSchema = z.enum(AUDIENCES);
 export type Audience = z.infer<typeof audienceSchema>;
 
+export const EFFORTS = ['low', 'medium', 'high', 'xhigh', 'max'] as const;
+export const effortSchema = z.enum(EFFORTS);
+export type Effort = z.infer<typeof effortSchema>;
+
 const DEFAULT_INCLUDE = ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.md'];
 const DEFAULT_EXCLUDE = [
   '**/node_modules/**',
@@ -46,6 +50,15 @@ export const configSchema = z.object({
       language: z.enum(['mirror', 'en']).default('mirror'),
     })
     .prefault({}),
+  knowledge: z
+    .object({
+      /**
+       * The language the extracted facts are written in — which follows the code, not the
+       * reader. Questions are rewritten into it before retrieval scores them.
+       */
+      language: z.string().default('English'),
+    })
+    .prefault({}),
   source: z
     .object({
       root: z.string().default('.'),
@@ -58,6 +71,18 @@ export const configSchema = z.object({
       extract: z.string().default(DEFAULT_MODEL),
       answer: z.string().default(DEFAULT_MODEL),
       judge: z.string().default(DEFAULT_MODEL),
+    })
+    .prefault({}),
+  /**
+   * How hard the model works per stage. Extraction produces a durable artifact nobody is
+   * waiting on, so it defaults high; answering happens while a person watches a cursor blink,
+   * so it defaults medium. Both are worth sweeping against your own repo.
+   */
+  effort: z
+    .object({
+      extract: effortSchema.default('high'),
+      answer: effortSchema.default('medium'),
+      judge: effortSchema.default('high'),
     })
     .prefault({}),
   limits: z

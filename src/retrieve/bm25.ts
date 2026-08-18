@@ -15,7 +15,9 @@ const WEIGHT_SUMMARY = 2;
 const WEIGHT_BODY = 1;
 
 export function tokenize(text: string): string[] {
-  const raw = text.toLowerCase().match(/[a-z0-9][a-z0-9_-]*/g) ?? [];
+  // Unicode-aware: an ASCII-only pattern silently drops every Cyrillic, Greek, or CJK word,
+  // which reads as "nothing matched" rather than as a bug.
+  const raw = text.toLowerCase().match(/[\p{L}\p{N}][\p{L}\p{N}_-]*/gu) ?? [];
   return raw.filter((token) => token.length >= 2 && !STOP_WORDS.has(token));
 }
 

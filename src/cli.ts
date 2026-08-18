@@ -30,6 +30,7 @@ ask options
   --audience <${AUDIENCES.join('|')}>
   --limit <n>                    Facts to retrieve (default ${DEFAULT_LIMIT})
   --include-low                  Include facts the extractor was unsure about
+  --raw-query                    Score the question as typed, skipping the rewrite hop
   --json                         Emit the answer and retrieval detail as JSON
   --no-sources                   Do not print which facts were used
 
@@ -46,6 +47,7 @@ const BOOLEAN_FLAGS = new Set([
   'force',
   'dry-run',
   'include-low',
+  'raw-query',
   'json',
   'no-sources',
   'help',
@@ -215,6 +217,7 @@ async function commandAsk(flags: Flags): Promise<number> {
     question,
     context,
     limit,
+    rawQuery: has(flags, 'raw-query'),
     ...(asJson ? {} : { onText: (delta) => log.out(delta) }),
   });
 
@@ -223,6 +226,8 @@ async function commandAsk(flags: Flags): Promise<number> {
       `${JSON.stringify(
         {
           question,
+          search_query: result.query.search,
+          rewritten: result.query.rewritten,
           answer: result.answer,
           no_match: result.noMatch,
           facts: result.retrieved.map((entry) => ({
@@ -248,6 +253,9 @@ async function commandAsk(flags: Flags): Promise<number> {
       log.warn('no facts matched — this question is a gap in the knowledge base');
     } else {
       log.info('');
+      if (result.query.rewritten) {
+        log.step(`searched for: ${result.query.search}`);
+      }
       log.step('facts used:');
       for (const entry of result.retrieved) {
         const route = entry.fact.route === undefined ? '' : ` [${entry.fact.route}]`;

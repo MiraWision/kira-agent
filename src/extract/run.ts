@@ -118,6 +118,7 @@ async function extractArea(run: AreaRun): Promise<AreaOutcome> {
   for (const [index, batch] of batches.entries()) {
     const result = await structured({
       model: config.models.extract,
+      effort: config.effort.extract,
       schema: apiExtractionSchema,
       instructions,
       input: extractionInput({

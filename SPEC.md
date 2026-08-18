@@ -150,6 +150,11 @@ models:
   answer: claude-opus-5
   judge: claude-opus-5
 
+effort:                   # how hard the model works per stage
+  extract: high           # a durable artifact, nobody waiting — quality wins
+  answer: medium          # a person is watching a cursor blink — latency wins
+  judge: high
+
 limits:
   batch_bytes: 100000     # source bytes per extraction call
   max_chunks_per_batch: 12
@@ -265,10 +270,12 @@ That is a different product with a different risk profile.
 
 ## 9. Cost, freshness, and review — the three honest problems
 
-1. **Extraction cost scales with the repo.** Mitigations: incremental by area hash
+1. **Extraction cost and latency scale with the repo.** Mitigations: incremental by area hash
    (unchanged areas are skipped entirely), prompt caching on the stable instruction prefix,
-   the Batch API for full rebuilds (half price), and a per-stage model setting so the bulk
-   stage can be moved down a tier by an informed decision rather than a default.
+   the Batch API for full rebuilds (half price), and per-stage `models` and `effort` settings.
+   Extraction is a CI job that produces a durable artifact, so it defaults to high effort and
+   takes minutes, not seconds; answering defaults to medium because someone is waiting. Both
+   are worth sweeping against a real repo rather than trusting the defaults.
 2. **Knowledge goes stale.** Every fact records the `area_hash` and git sha it came from.
    `status` reports staleness, and CI re-extracts changed areas on merge, so drift is
    visible instead of silent.

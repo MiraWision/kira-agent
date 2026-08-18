@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 import type { z } from 'zod';
+import type { Effort } from '../config.js';
 
 /**
  * Non-streaming ceiling. Kept under the SDK's HTTP timeout; a truncated response is retried
@@ -25,10 +26,13 @@ export function client(): Anthropic {
 
 export type StructuredRequest<T extends z.ZodType> = {
   model: string;
+  effort: Effort;
   schema: T;
   /** Stable across calls — cached, so keep instructions here and inputs in `input`. */
   instructions: string;
   input: string;
+  /** Override for small helper calls that should not reserve a batch-sized budget. */
+  maxTokens?: number;
 };
 
 /**
@@ -38,7 +42,11 @@ export type StructuredRequest<T extends z.ZodType> = {
 export async function structured<T extends z.ZodType>(
   request: StructuredRequest<T>,
 ): Promise<z.infer<T>> {
-  for (const maxTokens of [MAX_TOKENS, MAX_TOKENS_RETRY]) {
+  const budgets =
+    request.maxTokens === undefined
+      ? [MAX_TOKENS, MAX_TOKENS_RETRY]
+      : [request.maxTokens, request.maxTokens * 2];
+  for (const maxTokens of budgets) {
     const response = await client().messages.parse({
       model: request.model,
       max_tokens: maxTokens,
@@ -51,7 +59,7 @@ export async function structured<T extends z.ZodType>(
         },
       ],
       messages: [{ role: 'user', content: request.input }],
-      output_config: { format: zodOutputFormat(request.schema) },
+      output_config: { effort: request.effort, format: zodOutputFormat(request.schema) },
     });
 
     if (response.stop_reason === 'refusal') {
@@ -60,7 +68,7 @@ export async function structured<T extends z.ZodType>(
       );
     }
     if (response.stop_reason === 'max_tokens') {
-      if (maxTokens === MAX_TOKENS_RETRY) {
+      if (maxTokens === budgets[budgets.length - 1]) {
         throw new LlmError('response exceeded the output budget even after retrying');
       }
       continue;
@@ -75,6 +83,7 @@ export async function structured<T extends z.ZodType>(
 
 export type StreamRequest = {
   model: string;
+  effort: Effort;
   system: string;
   messages: { role: 'user' | 'assistant'; content: string }[];
   onText: (delta: string) => void;
@@ -85,6 +94,7 @@ export async function streamText(request: StreamRequest): Promise<string> {
   const stream = client().messages.stream({
     model: request.model,
     max_tokens: 4_000,
+    output_config: { effort: request.effort },
     system: [
       { type: 'text', text: request.system, cache_control: { type: 'ephemeral' } },
     ],

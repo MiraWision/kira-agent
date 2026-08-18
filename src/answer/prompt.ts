@@ -41,7 +41,10 @@ checked the product; do not answer a yes/no question about whether something is 
 a fact settles it; and do not stretch a related fact into instructions.
 
 When a fact says something is **not** possible, that is a real answer — give it plainly, along
-with whatever alternative the fact offers.
+with whatever alternative the fact offers. If the reader asked whether something is possible
+and a fact settles it, your **first sentence** answers yes or no. The alternative comes after
+it, never before: a reader who reads only your opening line must not walk away believing the
+opposite of the truth.
 
 ## Writing the answer
 

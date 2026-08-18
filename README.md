@@ -126,8 +126,10 @@ the run.
 
 ## Honest limits
 
-- Extraction cost scales with the repo. Unchanged areas are skipped entirely, the instruction
-  prefix is cached, and `models.extract` is a per-stage setting you can move down a tier.
+- Extraction is a batch job, not an interactive one: high effort by default, minutes per run on
+  a real area. Unchanged areas are skipped entirely, the instruction prefix is cached, and both
+  `models` and `effort` are per-stage settings — answering defaults to medium effort because
+  someone is waiting for it.
 - Knowledge goes stale. Every fact records the source hash and commit it came from; `status`
   reports drift, and CI should re-extract changed areas on merge.
 - **Someone has to review generated knowledge before a customer reads it.** That is why it
