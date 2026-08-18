@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KIRA — Knowledge Interface for Reliable Answers</title>
+<meta name="description" content="KIRA turns a codebase into a maintained knowledge base about your product, then answers your users' questions from it — grounded in what the code actually does.">
+<style>
+:root {
+  --ground: #FAFBFB;
+  --surface: #FFFFFF;
+  --surface-sunk: #F1F4F4;
+  --ink: #12191C;
+  --ink-soft: #3D4C51;
+  --muted: #5C6B70;
+  --rule: #DCE4E5;
+  --rule-strong: #C3CFD1;
+  --accent: #0D6E66;
+  --accent-ink: #08514B;
+  --accent-soft: #E4F0EE;
+  --flag: #8A5610;
+  --flag-soft: #F8EEDD;
+  --shadow: 0 1px 2px rgba(18, 25, 28, .05), 0 8px 24px -16px rgba(18, 25, 28, .28);
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+
+  --measure: 68ch;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0E1416;
+    --surface: #151D20;
+    --surface-sunk: #101719;
+    --ink: #E6EDEE;
+    --ink-soft: #C0CDD0;
+    --muted: #8FA1A5;
+    --rule: #253235;
+    --rule-strong: #35474B;
+    --accent: #5ACFC0;
+    --accent-ink: #8BE3D7;
+    --accent-soft: #12302D;
+    --flag: #E0A85C;
+    --flag-soft: #2C2314;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0E1416;
+  --surface: #151D20;
+  --surface-sunk: #101719;
+  --ink: #E6EDEE;
+  --ink-soft: #C0CDD0;
+  --muted: #8FA1A5;
+  --rule: #253235;
+  --rule-strong: #35474B;
+  --accent: #5ACFC0;
+  --accent-ink: #8BE3D7;
+  --accent-soft: #12302D;
+  --flag: #E0A85C;
+  --flag-soft: #2C2314;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: var(--mono); font-weight: 600; line-height: 1.15; text-wrap: balance; margin: 0; letter-spacing: -.02em; }
+h1 { font-size: clamp(2rem, 5.2vw, 3.1rem); letter-spacing: -.035em; }
+h2 { font-size: clamp(1.4rem, 2.6vw, 1.75rem); }
+h3 { font-size: 1.0625rem; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: var(--accent-ink); text-underline-offset: .18em; text-decoration-thickness: from-font; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+code, kbd { font-family: var(--mono); font-size: .875em; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .6875rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 60rem) {
+  .shell { grid-template-columns: 15rem minmax(0, 1fr); }
+}
+.rail {
+  display: none;
+  border-right: 1px solid var(--rule);
+  padding: 2.5rem 1.5rem 3rem var(--gutter);
+}
+@media (min-width: 60rem) {
+  .rail { display: block; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+}
+.rail-mark { display: flex; flex-direction: column; gap: .3rem; margin-bottom: 2rem; }
+.rail-mark b { font-family: var(--mono); font-size: 1.0625rem; letter-spacing: .04em; }
+.rail-mark span { font-size: .8125rem; color: var(--muted); font-family: var(--mono); }
+.rail nav { display: flex; flex-direction: column; gap: .1rem; }
+.rail nav a {
+  font-family: var(--mono); font-size: .8125rem; color: var(--muted);
+  text-decoration: none; padding: .3rem .55rem; border-radius: 3px; border-left: 2px solid transparent;
+  transition: color .15s, background-color .15s, border-color .15s;
+}
+.rail nav a:hover { color: var(--ink); background: var(--surface-sunk); }
+.rail nav a.here { color: var(--ink); border-left-color: var(--accent); background: var(--surface-sunk); }
+.rail nav .grp { margin-top: 1.1rem; padding: 0 .55rem .35rem; }
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .9rem var(--gutter); border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(8px); z-index: 20;
+}
+@media (min-width: 60rem) { .topbar { display: none; } }
+.topbar b { font-family: var(--mono); letter-spacing: .04em; }
+.topbar select {
+  font-family: var(--mono); font-size: .8125rem; padding: .35rem .5rem;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--rule); border-radius: 4px;
+}
+
+main { padding: 0 var(--gutter) 6rem; min-width: 0; }
+section { padding: 3.25rem 0; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: 0; }
+.wrap { max-width: var(--measure); display: flex; flex-direction: column; gap: 1.15rem; }
+.wide { max-width: 62rem; }
+.lead { font-size: 1.1875rem; color: var(--ink-soft); }
+.note { font-size: .9375rem; color: var(--muted); }
+
+/* ---------- hero ---------- */
+.hero { padding: clamp(3rem, 8vw, 5.5rem) 0 3.5rem; border-bottom: 1px solid var(--rule); }
+.hero-inner { max-width: 62rem; display: flex; flex-direction: column; gap: 1.5rem; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lead { max-width: 54ch; }
+.badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+.badge {
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid var(--rule-strong); color: var(--muted);
+  padding: .28rem .55rem; border-radius: 999px;
+}
+.badge.on { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: .35rem; }
+.cmd {
+  font-family: var(--mono); font-size: .875rem;
+  background: var(--surface); border: 1px solid var(--rule-strong); border-radius: 5px;
+  padding: .6rem .8rem; color: var(--ink); box-shadow: var(--shadow);
+  overflow-x: auto; white-space: nowrap;
+}
+.cmd .p { color: var(--muted); user-select: none; }
+.btn {
+  font-family: var(--mono); font-size: .8125rem; letter-spacing: .02em;
+  text-decoration: none; padding: .62rem .95rem; border-radius: 5px;
+  background: var(--accent); color: var(--ground); border: 1px solid var(--accent);
+  transition: filter .15s;
+}
+:root[data-theme="dark"] .btn, :root:not([data-theme="light"]) .btn { color: #0B1113; }
+.btn:hover { filter: brightness(1.08); color: var(--ground); }
+:root[data-theme="dark"] .btn:hover { color: #0B1113; }
+
+/* ---------- specimen: code → fact ---------- */
+.specimen { display: grid; gap: .9rem; margin-top: 1rem; align-items: stretch; }
+@media (min-width: 48rem) { .specimen { grid-template-columns: 1fr auto 1fr; align-items: stretch; } }
+.panel {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 7px;
+  box-shadow: var(--shadow); overflow: hidden; min-width: 0;
+}
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  padding: .55rem .8rem; border-bottom: 1px solid var(--rule);
+  background: var(--surface-sunk);
+  font-family: var(--mono); font-size: .75rem; color: var(--muted);
+}
+.panel-head .tag { letter-spacing: .1em; text-transform: uppercase; font-size: .6875rem; }
+.panel-body { padding: .9rem; font-family: var(--mono); font-size: .8125rem; line-height: 1.6; overflow-x: auto; white-space: pre-wrap; }
+.panel-body.prose { font-family: var(--serif); font-size: .9375rem; line-height: 1.6; white-space: normal; }
+.arrow {
+  font-family: var(--mono); color: var(--muted); font-size: .75rem;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+  letter-spacing: .1em; text-transform: uppercase; padding: .35rem 0;
+}
+@media (min-width: 48rem) { .arrow { flex-direction: column; padding: 0 .35rem; align-self: center; } }
+
+.fm { color: var(--muted); }
+.fm .k { color: var(--accent-ink); }
+.fm .v { color: var(--ink-soft); }
+
+/* ---------- type chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-family: var(--mono); font-size: .6875rem; letter-spacing: .07em; text-transform: uppercase;
+  padding: .2rem .45rem; border-radius: 3px; border: 1px solid var(--rule-strong); color: var(--muted);
+}
+.chip.boundary { color: var(--flag); border-color: var(--flag); background: var(--flag-soft); }
+.chip.accent { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+
+/* ---------- generic blocks ---------- */
+pre {
+  margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+  padding: .9rem 1rem; overflow-x: auto; font-family: var(--mono); font-size: .8125rem; line-height: 1.65;
+  color: var(--ink-soft);
+}
+pre b { color: var(--ink); font-weight: 600; }
+pre .c { color: var(--muted); }
+pre .k { color: var(--accent-ink); }
+
+table { border-collapse: collapse; width: 100%; font-size: .9375rem; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+th, td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+th { font-family: var(--mono); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td code { color: var(--accent-ink); }
+td.num { font-variant-numeric: tabular-nums; text-align: right; }
+
+ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.35rem; }
+ol.steps > li { counter-increment: s; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); gap: .85rem; }
+ol.steps > li::before {
+  content: counter(s, decimal-leading-zero);
+  font-family: var(--mono); font-size: .75rem; color: var(--accent-ink);
+  border-top: 2px solid var(--accent); padding-top: .35rem;
+}
+ol.steps h3 { margin-bottom: .3rem; }
+ol.steps .body { display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+
+ul.plain { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .5rem; }
+ul.plain li::marker { color: var(--rule-strong); }
+
+.grid2 { display: grid; gap: 1rem; }
+@media (min-width: 44rem) { .grid2 { grid-template-columns: 1fr 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 7px; padding: 1.1rem 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+.card h3 { color: var(--ink); }
+.card p { font-size: .9375rem; color: var(--ink-soft); }
+
+/* ---------- demo ---------- */
+.demo { border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.demo-head {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap;
+  padding: .7rem .9rem; border-bottom: 1px solid var(--rule); background: var(--surface-sunk);
+}
+.demo-head .who { font-family: var(--mono); font-size: .8125rem; }
+.demo-body { display: grid; gap: 0; }
+@media (min-width: 52rem) { .demo-body { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); } }
+.demo-chat { padding: 1rem; display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+.demo-side { padding: 1rem; border-top: 1px solid var(--rule); background: var(--surface-sunk); min-width: 0; }
+@media (min-width: 52rem) { .demo-side { border-top: 0; border-left: 1px solid var(--rule); } }
+
+.qbar { display: flex; flex-wrap: wrap; gap: .4rem; }
+.qbtn {
+  font-family: var(--mono); font-size: .75rem; text-align: left;
+  background: var(--surface); color: var(--ink-soft); border: 1px solid var(--rule-strong);
+  border-radius: 999px; padding: .35rem .7rem; cursor: pointer;
+  transition: border-color .15s, color .15s, background-color .15s;
+}
+.qbtn:hover { border-color: var(--accent); color: var(--ink); }
+.qbtn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-ink); }
+
+.bubble-q {
+  align-self: flex-end; max-width: 90%;
+  background: var(--accent-soft); border: 1px solid var(--accent);
+  color: var(--ink); border-radius: 10px 10px 2px 10px; padding: .55rem .8rem; font-size: .9375rem;
+}
+.bubble-a {
+  align-self: flex-start; max-width: 96%;
+  background: var(--surface-sunk); border: 1px solid var(--rule);
+  border-radius: 10px 10px 10px 2px; padding: .7rem .85rem; font-size: .9375rem;
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.bubble-a strong { color: var(--ink); }
+.bubble-a ol { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .25rem; }
+.fade-in { animation: fade .35s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.side-label { font-family: var(--mono); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+.hits { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+.hit { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; align-items: baseline; font-family: var(--mono); font-size: .75rem; }
+.hit .id { color: var(--ink-soft); overflow-wrap: anywhere; }
+.hit .sc { color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+.hit .bar { grid-column: 1 / -1; height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.hit .bar i { display: block; height: 100%; background: var(--accent); }
+.hit.dim .id, .hit.dim .sc { color: var(--muted); }
+.hit.dim .bar i { background: var(--rule-strong); }
+
+.kv { font-family: var(--mono); font-size: .75rem; color: var(--muted); display: flex; flex-direction: column; gap: .3rem; }
+.kv div { display: flex; gap: .5rem; }
+.kv b { color: var(--ink-soft); font-weight: 600; }
+
+/* ---------- stats ---------- */
+.stats { display: grid; gap: .75rem; }
+@media (min-width: 40rem) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stat { border: 1px solid var(--rule); border-radius: 7px; background: var(--surface); padding: .85rem .95rem; }
+.stat b { display: block; font-family: var(--mono); font-size: 1.5rem; letter-spacing: -.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-family: var(--mono); font-size: .6875rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+
+/* ---------- pipeline ---------- */
+.pipe { display: grid; gap: .7rem; }
+@media (min-width: 46rem) { .pipe { grid-template-columns: repeat(4, 1fr); } }
+.stage { border: 1px solid var(--rule); border-radius: 7px; background: var(--surface); padding: .9rem; display: flex; flex-direction: column; gap: .4rem; position: relative; }
+.stage .n { font-family: var(--mono); font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); }
+.stage h3 { font-size: .9375rem; }
+.stage p { font-size: .875rem; color: var(--ink-soft); }
+.stage.soon { border-style: dashed; background: transparent; }
+.stage.soon h3, .stage.soon p { color: var(--muted); }
+
+/* ---------- roadmap ---------- */
+.road { display: flex; flex-direction: column; gap: 0; }
+.road-item { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--rule); }
+.road-item:first-child { border-top: 0; }
+.road-item .ver { font-family: var(--mono); font-size: .8125rem; color: var(--ink); display: flex; flex-direction: column; gap: .3rem; }
+.road-item .st { font-family: var(--mono); font-size: .625rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.road-item.now .ver { color: var(--accent-ink); }
+.road-item.now .st { color: var(--accent-ink); }
+.road-item .what { display: flex; flex-direction: column; gap: .4rem; }
+.road-item .what p { font-size: .9375rem; color: var(--ink-soft); }
+
+footer { padding: 2.5rem 0 0; display: flex; flex-direction: column; gap: .6rem; }
+footer p { font-size: .875rem; color: var(--muted); }
+
+.callout {
+  border-left: 2px solid var(--flag); background: var(--flag-soft);
+  padding: .8rem 1rem; border-radius: 0 5px 5px 0; font-size: .9375rem; color: var(--ink-soft);
+}
+.callout b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="rail">
+    <div class="rail-mark">
+      <b>KIRA</b>
+      <span>knowledge from code</span>
+    </div>
+    <nav id="nav">
+      <a href="#top">Overview</a>
+      <a href="#why">Docs drift, code can't</a>
+      <a href="#demo">Ask it something</a>
+      <a href="#how">How it works</a>
+      <div class="grp eyebrow">Reference</div>
+      <a href="#install">Install &amp; quickstart</a>
+      <a href="#format">Knowledge format</a>
+      <a href="#config">Configuration</a>
+      <a href="#cli">CLI</a>
+      <a href="#retrieval">Retrieval</a>
+      <div class="grp eyebrow">Project</div>
+      <a href="#status">Status &amp; roadmap</a>
+      <a href="#limits">Honest limits</a>
+    </nav>
+  </aside>
+
+  <div>
+    <div class="topbar">
+      <b>KIRA</b>
+      <select id="jump" aria-label="Jump to section">
+        <option value="#top">Overview</option>
+        <option value="#why">Docs drift, code can't</option>
+        <option value="#demo">Ask it something</option>
+        <option value="#how">How it works</option>
+        <option value="#install">Install &amp; quickstart</option>
+        <option value="#format">Knowledge format</option>
+        <option value="#config">Configuration</option>
+        <option value="#cli">CLI</option>
+        <option value="#retrieval">Retrieval</option>
+        <option value="#status">Status &amp; roadmap</option>
+        <option value="#limits">Honest limits</option>
+      </select>
+    </div>
+
+    <main>
+      <!-- ============ HERO ============ -->
+      <div class="hero" id="top">
+        <div class="hero-inner">
+          <div class="badges">
+            <span class="badge on">v0.1 · in development</span>
+            <span class="badge">MIT</span>
+            <span class="badge">Node ≥ 20</span>
+            <span class="badge">3 dependencies</span>
+          </div>
+          <h1>Your help center goes stale the day you ship. <em>KIRA reads your code instead.</em></h1>
+          <p class="lead">KIRA turns a codebase into a maintained knowledge base about your product, then answers your users' questions from it — in their language, grounded in what the code actually does, and never invented.</p>
+
+          <div class="cta-row">
+            <div class="cmd"><span class="p">$</span> npm install -g kira-knowledge</div>
+            <a class="btn" href="#install">Quickstart</a>
+            <a class="btn" href="#demo" style="background:transparent;color:var(--accent-ink);border-color:var(--rule-strong)">See it answer</a>
+          </div>
+
+          <div class="specimen">
+            <div class="panel">
+              <div class="panel-head"><span class="tag">Input</span><span>src/app/domains/page.tsx</span></div>
+              <div class="panel-body">
+<span class="fm">// the router, the guards, the copy,</span>
+<span class="fm">// the disabled states, the errors —</span>
+<span class="fm">// whatever the product actually is</span></div>
+            </div>
+            <div class="arrow">kira&nbsp;extract <span aria-hidden="true">→</span></div>
+            <div class="panel">
+              <div class="panel-head"><span class="tag">Output</span><span>.knowledge/domains/no-transfer.md</span></div>
+              <div class="panel-body">
+<span class="fm"><span class="k">type</span>: <span class="v">boundary</span>
+<span class="k">route</span>: <span class="v">/project/:id/domains</span>
+<span class="k">confidence</span>: <span class="v">high</span></span>
+
+<span style="font-family:var(--serif);font-size:.9375rem;color:var(--ink)">Domain registration stays with your current registrar — there is no way to transfer it here.</span></div>
+            </div>
+          </div>
+          <p class="note">One fact per file, committed to your repository. Reviewed in a pull request before a customer ever reads it.</p>
+        </div>
+      </div>
+
+      <!-- ============ WHY ============ -->
+      <section id="why">
+        <div class="wrap">
+          <span class="eyebrow">The wedge</span>
+          <h2>Docs drift. Code can't.</h2>
+          <p>Every in-product help assistant on the market is grounded in documentation — help-center articles, support tickets, marketing pages. All of it describes the product as it was the last time somebody wrote it down. Source code cannot describe a product it does not build.</p>
+          <p>That is the whole thesis, and everything else in KIRA exists to make it trustworthy enough to put in front of a paying customer.</p>
+        </div>
+
+        <div class="wrap wide" style="margin-top:1.75rem">
+          <div class="grid2">
+            <div class="card">
+              <span class="chip accent">route</span>
+              <h3>It knows where things are</h3>
+              <p>Routes come out of your router, so a fact can carry the path it lives at. The assistant hands the reader a working link instead of describing where to click — and it knows that the same question means different things on different screens.</p>
+            </div>
+            <div class="card">
+              <span class="chip accent">requires</span>
+              <h3>It knows who can see them</h3>
+              <p>When the code gates something behind a plan or a role, the fact carries that gate. Telling a Free user how to use a Business feature is worse than silence, and no article has a field for this.</p>
+            </div>
+            <div class="card">
+              <span class="chip boundary">boundary</span>
+              <h3>It knows what you can't do</h3>
+              <p>Code is full of guards, plan checks and unsupported branches. The costliest wrong answer in this category is not an invented feature — it is a confident <em>yes</em> to something the product refuses. So refusals are a first-class fact type.</p>
+            </div>
+            <div class="card">
+              <span class="chip">git</span>
+              <h3>It leaves a paper trail</h3>
+              <p>Every fact records the files it came from, the commit, and the model that wrote it. Knowledge lives in your repo, so "what do we now tell users" is a <code>git diff</code>, and nothing reaches a customer without review.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DEMO ============ -->
+      <section id="demo">
+        <div class="wrap">
+          <span class="eyebrow">Recorded, not simulated</span>
+          <h2>Ask it something</h2>
+          <p>Below is real output from a real run: a two-fact knowledge base about custom domains, and the answers KIRA gave when asked about it. The questions are in Russian against an English knowledge base, because that is where the interesting part is — retrieval matches words, so crossing languages is the thing that has to work.</p>
+        </div>
+
+        <div class="wrap wide" style="margin-top:1.5rem">
+          <div class="demo">
+            <div class="demo-head">
+              <span class="who">KIRA · knowledge base: <code>domains</code> · 2 facts</span>
+              <span class="chip">playback of a recorded session</span>
+            </div>
+            <div class="demo-body">
+              <div class="demo-chat">
+                <div class="qbar" id="qbar" role="group" aria-label="Example questions"></div>
+                <div id="thread" aria-live="polite"></div>
+              </div>
+              <div class="demo-side">
+                <div class="side-label">Retrieved facts</div>
+                <div class="hits" id="hits"></div>
+                <div class="side-label">Retrieval detail</div>
+                <div class="kv" id="detail"></div>
+              </div>
+            </div>
+          </div>
+          <p class="note" style="margin-top:.9rem">The answer is written from the reader's own words, so it comes back in their language — while interface labels stay verbatim in English, because that is what they have to find on screen.</p>
+        </div>
+      </section>
+
+      <!-- ============ HOW ============ -->
+      <section id="how">
+        <div class="wrap">
+          <span class="eyebrow">Pipeline</span>
+          <h2>How it works</h2>
+          <p>Four stages. Each one is independently useful, and each has its own command.</p>
+        </div>
+        <div class="wrap wide" style="margin-top:1.4rem">
+          <div class="pipe">
+            <div class="stage">
+              <span class="n">kira init</span>
+              <h3>Propose the map</h3>
+              <p>Scans the repo and proposes an area per user-facing page and per behaviour module, deriving routes from the router. You edit it — an area is a topic someone asks about, not a directory.</p>
+            </div>
+            <div class="stage">
+              <span class="n">kira extract</span>
+              <h3>Read the code</h3>
+              <p>Reads each area and writes what it means for the people who use the product. Incremental: an area whose sources have not changed is skipped entirely.</p>
+            </div>
+            <div class="stage">
+              <span class="n">kira ask</span>
+              <h3>Answer from facts</h3>
+              <p>Retrieves, filters by who is asking and where they are, and answers from the retrieved facts only — with an honest "I don't have that" when they don't cover it.</p>
+            </div>
+            <div class="stage soon">
+              <span class="n">kira eval · v0.2</span>
+              <h3>Prove it</h3>
+              <p>Generates questions per area, answers them through the real pipeline, judges the answers, and turns the weak ones into a documentation backlog.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap" style="margin-top:2rem">
+          <h3>Measured on a private production codebase</h3>
+          <p class="note">Two areas, four source files, extraction at high effort. Numbers only — the knowledge itself belongs to the codebase's owner.</p>
+        </div>
+        <div class="wrap wide" style="margin-top:.9rem">
+          <div class="stats">
+            <div class="stat"><b>35</b><span>facts written</span></div>
+            <div class="stat"><b>3m22s</b><span>wall clock</span></div>
+            <div class="stat"><b>35/35</b><span>carried a route</span></div>
+            <div class="stat"><b>33/35</b><span>high confidence</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ INSTALL ============ -->
+      <section id="install">
+        <div class="wrap">
+          <span class="eyebrow">Getting started</span>
+          <h2>Install &amp; quickstart</h2>
+          <p>Five minutes from clone to first answer. No database, no vector store, no second API key.</p>
+        </div>
+        <div class="wrap" style="margin-top:1.6rem">
+          <ol class="steps">
+            <li>
+              <div class="body">
+                <h3>Install and authenticate</h3>
+                <pre><span class="c">$</span> npm install -g kira-knowledge
+<span class="c">$</span> export ANTHROPIC_API_KEY=sk-ant-…</pre>
+                <p class="note">The SDK also accepts <code>ANTHROPIC_AUTH_TOKEN</code> or a profile from <code>ant auth login</code>.</p>
+              </div>
+            </li>
+            <li>
+              <div class="body">
+                <h3>Look at the areas it proposes</h3>
+                <pre><span class="c">$</span> kira init --dry-run</pre>
+                <p>Writes nothing. Prints one row per proposed area with the route it derived, so you can see whether the map makes sense before anything is generated.</p>
+              </div>
+            </li>
+            <li>
+              <div class="body">
+                <h3>Write the config, then edit it</h3>
+                <pre><span class="c">$</span> kira init
+<span class="c">$</span> $EDITOR .kira/config.yaml</pre>
+                <div class="callout"><b>This is the ten minutes that matter.</b> The area map is the highest-value human input in the system. Merge what belongs together, delete what has nothing user-facing, and give each area a name your users would recognise.</div>
+              </div>
+            </li>
+            <li>
+              <div class="body">
+                <h3>Extract</h3>
+                <pre><span class="c">$</span> kira extract
+<span class="c">›</span> domains — 6 files, 2 batch(es), end_user
+<span class="c">›</span>   batch 1/2 → 12 fact(s)
+<span class="c">✓</span> domains — 21 fact(s) written</pre>
+                <p>Facts land in <code>.knowledge/</code>. Commit them: the pull request is where a human approves what a customer will read.</p>
+              </div>
+            </li>
+            <li>
+              <div class="body">
+                <h3>Ask</h3>
+                <pre><span class="c">$</span> kira ask <b>"how do I connect a domain I already own?"</b></pre>
+                <p class="note">The answer streams to stdout and everything else to stderr, so <code>kira ask … 2>/dev/null</code> gives you just the answer.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ FORMAT ============ -->
+      <section id="format">
+        <div class="wrap">
+          <span class="eyebrow">Reference</span>
+          <h2>The knowledge format</h2>
+          <p>One fact per file at <code>.knowledge/&lt;area&gt;/&lt;slug&gt;.md</code>: YAML frontmatter, then the answer in markdown. Plain files, so they diff, review, and travel like any other source.</p>
+        </div>
+        <div class="wrap wide" style="margin-top:1.3rem">
+          <pre>---
+<span class="k">id</span>: domains/connect-existing
+<span class="k">area</span>: domains
+<span class="k">type</span>: workflow            <span class="c"># feature · workflow · concept · ui_location</span>
+<span class="k">audience</span>: end_user         <span class="c"># faq · boundary · policy · troubleshooting</span>
+<span class="k">title</span>: Connect a domain you already own
+<span class="k">summary</span>: Point an existing domain at your project from project settings.
+<span class="k">route</span>: /project/:id/domains  <span class="c"># dynamic segments as :name</span>
+<span class="k">requires</span>:
+  <span class="k">plan</span>: [pro, business]     <span class="c"># gated away from readers who can't reach it</span>
+<span class="k">sources</span>:                     <span class="c"># the audit trail</span>
+  - src/app/project/[id]/domains/page.tsx
+<span class="k">extracted</span>:
+  <span class="k">at</span>: 2026-08-18
+  <span class="k">model</span>: claude-opus-5
+  <span class="k">area_hash</span>: 4f1c9a…        <span class="c"># drives staleness detection</span>
+  <span class="k">git_sha</span>: a3f9c21
+<span class="k">confidence</span>: high            <span class="c"># low is quarantined from answers</span>
+---
+Open <b>**Project settings → Domains**</b>, choose <b>**Add existing domain**</b>, and enter
+the domain name. Copy the two DNS records shown and add them at your registrar…</pre>
+        </div>
+
+        <div class="wrap" style="margin-top:1.6rem">
+          <h3>Fact types</h3>
+        </div>
+        <div class="wrap wide" style="margin-top:.7rem">
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Type</th><th>What it holds</th></tr></thead>
+              <tbody>
+                <tr><td><code>feature</code></td><td>A capability that exists.</td></tr>
+                <tr><td><code>workflow</code></td><td>An ordered way to accomplish something.</td></tr>
+                <tr><td><code>concept</code></td><td>A term or model the reader needs in order to use the product.</td></tr>
+                <tr><td><code>ui_location</code></td><td>Where something lives in the interface.</td></tr>
+                <tr><td><code>faq</code></td><td>A question users actually ask, with its answer.</td></tr>
+                <tr><td><code>boundary</code></td><td><strong>Something the product does not or cannot do</strong>, and the alternative if one exists.</td></tr>
+                <tr><td><code>policy</code></td><td>A rule that affects the reader: limits, quotas, retention, billing behaviour.</td></tr>
+                <tr><td><code>troubleshooting</code></td><td>A symptom, its likely cause, and what to try next.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONFIG ============ -->
+      <section id="config">
+        <div class="wrap">
+          <span class="eyebrow">Reference</span>
+          <h2>Configuration</h2>
+          <p><code>.kira/config.yaml</code> is written by <code>kira init</code> and then edited by you. Everything except <code>areas</code> has a working default.</p>
+        </div>
+        <div class="wrap wide" style="margin-top:1.3rem">
+          <pre><span class="k">version</span>: 1
+
+<span class="k">assistant</span>:
+  <span class="k">name</span>: KIRA                <span class="c"># rename it per deployment</span>
+  <span class="k">audience</span>: end_user        <span class="c"># end_user · operator · developer</span>
+  <span class="k">language</span>: mirror         <span class="c"># answer in the reader's language</span>
+
+<span class="k">knowledge</span>:
+  <span class="k">language</span>: English        <span class="c"># what the facts are written in</span>
+
+<span class="k">models</span>:
+  <span class="k">extract</span>: claude-opus-5
+  <span class="k">answer</span>: claude-opus-5
+  <span class="k">judge</span>: claude-opus-5
+
+<span class="k">effort</span>:                     <span class="c"># how hard the model works per stage</span>
+  <span class="k">extract</span>: high            <span class="c"># a durable artifact, nobody waiting</span>
+  <span class="k">answer</span>: medium           <span class="c"># a person is watching a cursor blink</span>
+  <span class="k">judge</span>: high
+
+<span class="k">areas</span>:
+  - <span class="k">id</span>: domains
+    <span class="k">name</span>: Custom Domains
+    <span class="k">audience</span>: end_user
+    <span class="k">route</span>: /project/:id/domains
+    <span class="k">paths</span>:
+      - src/app/project/[id]/domains</pre>
+        </div>
+      </section>
+
+      <!-- ============ CLI ============ -->
+      <section id="cli">
+        <div class="wrap">
+          <span class="eyebrow">Reference</span>
+          <h2>Command line</h2>
+        </div>
+        <div class="wrap wide" style="margin-top:1.2rem">
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Command</th><th>Does</th></tr></thead>
+              <tbody>
+                <tr><td><code>kira init [dir] [--dry-run]</code></td><td>Propose areas from a repository and write the config. <code>--dry-run</code> prints the proposal and writes nothing.</td></tr>
+                <tr><td><code>kira extract [--area &lt;id&gt;] [--force]</code></td><td>Extract into <code>.knowledge/</code>, skipping areas whose sources have not changed.</td></tr>
+                <tr><td><code>kira status</code></td><td>Facts, boundaries, routes and staleness per area — <code>fresh</code>, <code>stale</code>, or <code>not yet run</code>.</td></tr>
+                <tr><td><code>kira ask "&lt;question&gt;"</code></td><td>Answer from the knowledge base.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="wrap" style="margin-top:1.5rem">
+          <h3>Options for <code>ask</code></h3>
+        </div>
+        <div class="wrap wide" style="margin-top:.7rem">
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Option</th><th>Effect</th></tr></thead>
+              <tbody>
+                <tr><td><code>--route &lt;path&gt;</code></td><td>The screen the reader is on. Boosts facts that live there.</td></tr>
+                <tr><td><code>--plan &lt;name&gt;</code> · <code>--role &lt;name&gt;</code></td><td>Who is asking. Facts gated away from them are dropped.</td></tr>
+                <tr><td><code>--flag &lt;name&gt;</code></td><td>An enabled feature flag. Repeatable.</td></tr>
+                <tr><td><code>--audience &lt;a&gt;</code></td><td>Read as an end user, an operator, or a developer.</td></tr>
+                <tr><td><code>--limit &lt;n&gt;</code></td><td>How many facts to retrieve. Default 5.</td></tr>
+                <tr><td><code>--include-low</code></td><td>Include facts the extractor was unsure about.</td></tr>
+                <tr><td><code>--raw-query</code></td><td>Score the question as typed, skipping the rewrite hop.</td></tr>
+                <tr><td><code>--json</code></td><td>Answer plus retrieval detail as JSON.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RETRIEVAL ============ -->
+      <section id="retrieval">
+        <div class="wrap">
+          <span class="eyebrow">Under the hood</span>
+          <h2>How a question finds a fact</h2>
+          <p>A knowledge base is hundreds of facts, not millions of documents, and every fact carries a hand-quality title and summary. So retrieval is BM25 — no embeddings, no vector store, nothing to run. It costs nothing, works offline, and returns the same result twice, which matters more than marginal recall when the output is customer-facing.</p>
+          <ul class="plain">
+            <li><b>Rewrite.</b> The question is rewritten into the language the facts are written in. Lexical retrieval cannot cross languages: a Russian question against an English base scores exactly zero, and the assistant honestly reports ignorance about something it knows.</li>
+            <li><b>Score.</b> BM25 over title (×3), summary (×2) and body.</li>
+            <li><b>Place.</b> Facts matching the reader's current screen are boosted — multiplicatively, so this reorders comparable matches instead of lifting an irrelevant one.</li>
+            <li><b>Gate.</b> Facts requiring a plan, role or flag the reader lacks are dropped. An <em>unknown</em> reader is never gated, because that would make an unauthenticated widget answer less than it knows.</li>
+            <li><b>Audience.</b> A developer-facing fact never reaches an end user.</li>
+            <li><b>Confidence.</b> Anything the extractor flagged <code>low</code> stays out unless you ask for it.</li>
+            <li><b>Diversity.</b> Near-duplicates are rejected, so five slots hold five distinct facts rather than one fact restated five times.</li>
+          </ul>
+          <p class="note">Optional embeddings arrive in v0.2 as a hybrid layer for large bases — exactly where BM25 starts to hurt, and not before.</p>
+        </div>
+      </section>
+
+      <!-- ============ STATUS ============ -->
+      <section id="status">
+        <div class="wrap">
+          <span class="eyebrow">Where this is</span>
+          <h2>Status &amp; roadmap</h2>
+          <p>KIRA is v0.1 and honest about it. The extraction and answering path works end to end on real repositories; the parts that make it safe to show a customer are still ahead.</p>
+        </div>
+        <div class="wrap wide" style="margin-top:1.4rem">
+          <div class="road">
+            <div class="road-item now">
+              <div class="ver">v0.1<span class="st">working now</span></div>
+              <div class="what">
+                <h3>Extract, retrieve, answer</h3>
+                <p><code>init</code>, <code>extract</code>, <code>status</code>, <code>ask</code>. Files only, BM25 only, no infrastructure. Good enough to run in CI and use from a terminal — inside your team.</p>
+              </div>
+            </div>
+            <div class="road-item">
+              <div class="ver">v0.2<span class="st">next</span></div>
+              <div class="what">
+                <h3>The eval loop</h3>
+                <p>Generated questions per area, plus cross-area and deliberately out-of-scope ones — because a system that cannot say "I don't know" scores well on coverage and fails in production. An independent judge scores every answer; weak ones become a gap backlog. Plus the Batch API for full rebuilds and optional embeddings.</p>
+                <p class="note">Until this exists there is no way to tell "answers well" from "answers confidently". That is the gate before anyone outside the team sees an answer.</p>
+              </div>
+            </div>
+            <div class="road-item">
+              <div class="ver">v0.3<span class="st">planned</span></div>
+              <div class="what">
+                <h3>The widget</h3>
+                <p>An HTTP endpoint over the same answering path, a React component and a script tag, the reader's screen and plan passed in as context, working deep links, and one adapter for handing a conversation to a human.</p>
+              </div>
+            </div>
+            <div class="road-item">
+              <div class="ver">v0.4<span class="st">planned</span></div>
+              <div class="what">
+                <h3>Production shape</h3>
+                <p>Optional Postgres and pgvector backend, atomic knowledge versions so a deploy is a switch rather than a race, multi-tenancy, and analytics over the gap backlog.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap" style="margin-top:2rem">
+          <h3>Deliberately out of scope</h3>
+          <ul class="plain">
+            <li><b>Not a coding assistant.</b> Claude Code, Cursor and friends already answer a developer's questions about a repository, and an agent with grep beats naive retrieval at that job. KIRA's reader cannot open the code.</li>
+            <li><b>Not an agent that acts inside your product.</b> An assistant that clicks things on a customer's behalf is a different product with a different risk profile.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ LIMITS ============ -->
+      <section id="limits">
+        <div class="wrap">
+          <span class="eyebrow">Before you adopt it</span>
+          <h2>Honest limits</h2>
+          <ul class="plain">
+            <li><b>Extraction is a batch job, not an interactive one.</b> High effort by default, minutes per run on a real area. Unchanged areas are skipped entirely, the instruction prefix is cached, and both <code>models</code> and <code>effort</code> are per-stage settings.</li>
+            <li><b>Knowledge goes stale.</b> Every fact records the source hash and commit it came from, <code>status</code> reports the drift, and CI should re-extract changed areas on merge — so drift is visible rather than silent.</li>
+            <li><b>Someone has to review what was generated.</b> That is why it lives in git. The first wrong answer a customer sees costs more trust than the tool earns in a month.</li>
+          </ul>
+        </div>
+
+        <footer>
+          <p><b style="font-family:var(--mono)">KIRA</b> — Knowledge Interface for Reliable Answers. MIT licensed.</p>
+          <p>Design notes, the full format reference and the roadmap live in <code>SPEC.md</code>.</p>
+        </footer>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Recorded from real `kira ask` runs against a two-fact knowledge base.
+  var SESSIONS = [
+    {
+      label: "как подключить домен?",
+      question: "как подключить домен, который я уже купил?",
+      search: "connect existing custom domain",
+      rewritten: true,
+      answer:
+        '<p>Откройте <strong>Project settings → Domains</strong> и выберите <strong>Add existing domain</strong> («добавить существующий домен»).</p>' +
+        '<ol><li>Введите имя домена.</li><li>Скопируйте две показанные DNS-записи и добавьте их у своего регистратора.</li>' +
+        '<li>Проверка обычно занимает до часа — после неё домен получит статус <strong>Active</strong>.</li></ol>' +
+        '<p>Обратите внимание: перенести саму регистрацию домена сюда нельзя — она остаётся у вашего текущего регистратора, домен только указывается на проект.</p>',
+      hits: [
+        { id: "domains/connect-existing", score: 1.63 },
+        { id: "domains/no-transfer", score: 0.49 }
+      ]
+    },
+    {
+      label: "можно перенести регистрацию?",
+      question: "могу ли я перенести регистрацию домена к вам?",
+      search: "transfer domain registration",
+      rewritten: true,
+      answer:
+        '<p><strong>Нет, перенести регистрацию домена сюда нельзя.</strong> Регистрация остаётся у вашего текущего регистратора — вместо переноса домен можно просто направить на проект.</p>' +
+        '<p>Оставьте домен там, где он зарегистрирован, и используйте <strong>Add existing domain</strong> в разделе доменов проекта.</p>',
+      hits: [
+        { id: "domains/no-transfer", score: 2.08 },
+        { id: "domains/connect-existing", score: 0.35 }
+      ]
+    },
+    {
+      label: "same question, in English",
+      question: "how do I connect a domain I already bought?",
+      search: "how do I connect a domain I already bought?",
+      rewritten: false,
+      answer:
+        '<p>Open <strong>Project settings → Domains</strong> and choose <strong>Add existing domain</strong>. Enter the domain name, then copy the two DNS records shown and add them at your registrar.</p>' +
+        '<p>Verification usually finishes within an hour; the domain shows <strong>Active</strong> once it does.</p>',
+      hits: [
+        { id: "domains/connect-existing", score: 3.49 },
+        { id: "domains/no-transfer", score: 0.31 }
+      ]
+    }
+  ];
+
+  var qbar = document.getElementById("qbar");
+  var thread = document.getElementById("thread");
+  var hitsEl = document.getElementById("hits");
+  var detailEl = document.getElementById("detail");
+  if (!qbar || !thread || !hitsEl || !detailEl) return;
+
+  var buttons = [];
+
+  function render(index) {
+    var s = SESSIONS[index];
+
+    buttons.forEach(function (b, i) {
+      b.setAttribute("aria-pressed", i === index ? "true" : "false");
+    });
+
+    thread.innerHTML =
+      '<div class="bubble-q fade-in">' + s.question + "</div>" +
+      '<div class="bubble-a fade-in">' + s.answer + "</div>";
+
+    var top = s.hits.length ? s.hits[0].score : 1;
+    hitsEl.innerHTML = s.hits.map(function (h, i) {
+      var pct = Math.max(4, Math.round((h.score / top) * 100));
+      return '<div class="hit' + (i === 0 ? "" : " dim") + '">' +
+        '<span class="id">' + h.id + "</span>" +
+        '<span class="sc">' + h.score.toFixed(2) + "</span>" +
+        '<span class="bar"><i style="width:' + pct + '%"></i></span>' +
+        "</div>";
+    }).join("");
+
+    detailEl.innerHTML =
+      "<div><b>asked in</b><span>" + (s.rewritten ? "Russian" : "English") + "</span></div>" +
+      "<div><b>searched for</b><span>" + s.search + "</span></div>" +
+      "<div><b>rewritten</b><span>" + (s.rewritten ? "yes" : "no — already matched") + "</span></div>" +
+      "<div><b>answered in</b><span>the reader's language</span></div>";
+  }
+
+  SESSIONS.forEach(function (s, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "qbtn";
+    b.textContent = s.label;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function () { render(i); });
+    qbar.appendChild(b);
+    buttons.push(b);
+  });
+
+  render(0);
+
+  // Rail highlighting
+  var links = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
+  var targets = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window && targets.length) {
+    var seen = new Map();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen.set(e.target.id, e.intersectionRatio); });
+      var best = null, bestRatio = 0;
+      seen.forEach(function (ratio, id) {
+        if (ratio > bestRatio) { bestRatio = ratio; best = id; }
+      });
+      links.forEach(function (a) {
+        a.classList.toggle("here", best !== null && a.getAttribute("href") === "#" + best);
+      });
+    }, { rootMargin: "-15% 0px -70% 0px", threshold: [0, .2, .5, 1] });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+
+  var jump = document.getElementById("jump");
+  if (jump) {
+    jump.addEventListener("change", function () {
+      var el = document.querySelector(jump.value);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+})();
+</script>
+</body>
+</html>

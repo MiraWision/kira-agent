@@ -137,3 +137,19 @@ the run.
   in a month.
 
 MIT. Design notes and roadmap in [SPEC.md](./SPEC.md).
+
+---
+
+## Documentation site
+
+`site/index.html` is the project's landing page and documentation — a single
+self-contained file with no build step, no dependencies and no external requests.
+Serve the folder anywhere static:
+
+```bash
+python3 -m http.server 4178 --directory site
+```
+
+It deploys as-is to GitHub Pages, Vercel, Netlify or any bucket. The interactive
+demo on it is playback of real recorded `kira ask` runs against a two-fact
+knowledge base; nothing on the page is simulated.
