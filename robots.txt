@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://mirawision.github.io/kira-agent/sitemap.xml
+Sitemap: https://mirawision.github.io/askkira/sitemap.xml
