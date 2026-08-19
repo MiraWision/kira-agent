@@ -1,0 +1,183 @@
+1:"$Sreact.fragment"
+2:I[22016,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],""]
+3:I[39756,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"default"]
+4:I[37457,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"default"]
+b:I[68027,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"default",1]
+:HL["/kira-agent/_next/static/chunks/1n6s678u8fr89.css","style"]
+9:X
+0:{"P":null,"c":["","docs","knowledge-format",""],"q":"","i":false,"f":[[["",{"children":["docs",{"children":[["slug","knowledge-format","d",[]],{"children":["__PAGE__",{},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4624],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/kira-agent/_next/static/chunks/1n6s678u8fr89.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":["$","body",null,{"className":"flex min-h-screen flex-col bg-canvas text-[17px] leading-[1.65]","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://mirawision.github.io/kira-agent/#org\",\"name\":\"MiraWision\",\"url\":\"https://github.com/MiraWision\"},{\"@type\":\"SoftwareApplication\",\"@id\":\"https://mirawision.github.io/kira-agent/#software\",\"name\":\"KIRA\",\"description\":\"KIRA turns a codebase into a maintained knowledge base about your product, then answers your users' questions from it — in their language, grounded in what the code does, and never invented.\",\"applicationCategory\":\"DeveloperApplication\",\"operatingSystem\":\"Node.js 20+\",\"url\":\"https://mirawision.github.io/kira-agent\",\"codeRepository\":\"https://github.com/MiraWision/kira-agent\",\"license\":\"https://opensource.org/licenses/MIT\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}}]}"}}],["$","header",null,{"className":"sticky top-0 z-30 border-line border-b bg-canvas/85 backdrop-blur","children":["$","div",null,{"className":"mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3.5","children":[["$","$L2",null,{"className":"font-mono font-semibold text-[17px] tracking-[0.04em] text-ink no-underline","href":"/","children":"KIRA"}],["$","nav",null,{"className":"flex items-center gap-5 font-mono text-[13px]","children":[["$","$L2",null,{"className":"text-muted transition-colors hover:text-ink","href":"/docs/","children":"Docs"}],["$","$L2",null,{"className":"text-muted transition-colors hover:text-ink","href":"/docs/roadmap/","children":"Roadmap"}],["$","a",null,{"className":"flex items-center gap-1.5 text-muted transition-colors hover:text-ink","href":"https://github.com/MiraWision/kira-agent","rel":"noreferrer","target":"_blank","children":[["$","svg",null,{"aria-hidden":"true","width":16,"height":16,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.6,"strokeLinecap":"round","strokeLinejoin":"round","dangerouslySetInnerHTML":{"__html":"<path d=\"M9 19.5c-4 1.2-4-2.2-5.5-2.7m11 5v-3.3c0-.9.1-1.3-.5-1.8 2.5-.3 5-1.2 5-5.5a4.3 4.3 0 0 0-1.2-3c.1-.3.5-1.5-.1-3.1 0 0-1-.3-3.2 1.2a11 11 0 0 0-5.8 0C6.5 4.8 5.5 5.1 5.5 5.1c-.6 1.6-.2 2.8-.1 3.1a4.3 4.3 0 0 0-1.2 3c0 4.3 2.5 5.2 5 5.5-.4.4-.5.9-.5 1.6v3.5\"/>"}}],"GitHub"]}]]}]]}]}],["$","main",null,{"className":"flex-1","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","div",null,{"className":"mx-auto flex max-w-2xl flex-col gap-4 px-6 py-24","children":[["$","p",null,{"className":"font-mono text-[11px] text-muted uppercase tracking-[0.14em]","children":"404"}],["$","h1",null,{"className":"font-semibold text-3xl","children":"No page here"}],["$","p",null,{"className":"text-ink-2","children":"That address does not exist on this site. The documentation index is probably where you were heading."}],["$","$L2",null,{"className":"font-mono text-[14px] text-brand underline underline-offset-4","href":"/docs/","children":"Go to the docs →"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-line border-t","children":["$","div",null,{"className":"mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-[14px] text-muted","children":[["$","p",null,{"children":[["$","b",null,{"className":"font-mono font-semibold text-ink","children":"KIRA"}]," — Knowledge Interface for Reliable Answers. MIT licensed."]}],"$L5"]}]}]]}]}]]}],{"children":["$L6",{"children":["$L7",{"children":["$L8",{},null,false,null]},null,false,"$9"]},null,false,"$9"]},null,false,null],"$La",false]],"m":"$undefined","G":["$b",["$Lc"]],"S":true,"h":null,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"PMscumRyEY9fTxKmuYl6y"}
+e:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"OutletBoundary"]
+f:"$Sreact.suspense"
+11:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"ViewportBoundary"]
+13:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"MetadataBoundary"]
+5:["$","p",null,{"children":["Design notes and the full format reference live in"," ",["$","a",null,{"className":"text-ink underline underline-offset-2","href":"https://github.com/MiraWision/kira-agent/blob/main/SPEC.md","rel":"noreferrer","target":"_blank","children":"SPEC.md"}],"."]}]
+6:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+7:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+8:["$","$1","c",{"children":["$Ld",null,["$","$Le",null,{"children":["$","$f",null,{"name":"Next.MetadataOutlet","children":"$@10"}]}]]}]
+a:["$","$1","h",{"children":[null,["$","$L11",null,{"children":"$L12"}],["$","div",null,{"hidden":true,"children":["$","$L13",null,{"children":["$","$f",null,{"name":"Next.Metadata","children":"$L14"}]}]}],null]}]
+c:["$","link","0",{"rel":"stylesheet","href":"/kira-agent/_next/static/chunks/1n6s678u8fr89.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]
+9:C
+12:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+15:I[27201,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"IconMark"]
+10:null
+14:[["$","title","0",{"children":"The knowledge format — KIRA"}],["$","meta","1",{"name":"description","content":"One fact per file: frontmatter, body, and the fields that make it an in-product assistant — route, requires, sources, provenance, confidence, and eight fact types."}],["$","meta","2",{"name":"robots","content":"index, follow, max-image-preview:large"}],["$","link","3",{"rel":"canonical","href":"https://mirawision.github.io/kira-agent/docs/knowledge-format/"}],["$","meta","4",{"property":"og:title","content":"The knowledge format — KIRA"}],["$","meta","5",{"property":"og:description","content":"One fact per file: frontmatter, body, and the fields that make it an in-product assistant — route, requires, sources, provenance, confidence, and eight fact types."}],["$","meta","6",{"property":"og:url","content":"https://mirawision.github.io/kira-agent/docs/knowledge-format/"}],["$","meta","7",{"property":"og:site_name","content":"KIRA"}],["$","meta","8",{"property":"og:type","content":"article"}],["$","meta","9",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","10",{"name":"twitter:title","content":"The knowledge format — KIRA"}],["$","meta","11",{"name":"twitter:description","content":"One fact per file: frontmatter, body, and the fields that make it an in-product assistant — route, requires, sources, provenance, confidence, and eight fact types."}],["$","link","12",{"rel":"icon","href":"/kira-agent/icon.svg","type":"image/svg+xml"}],["$","$L15","13",{}]]
+16:T2a5e,<p>One fact per file, at <code>.knowledge/&lt;area&gt;/&lt;slug&gt;.md</code>: YAML frontmatter, then the answer in markdown.</p>
+<p>Plain files, so they diff, review and travel like any other source. This is the load-bearing
+decision in KIRA — a database would have been less work and would have removed the pull request,
+which is the only place a human sees generated text before a customer does.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">---</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">domains/connect-existing</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">area</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">domains</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">workflow</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">audience</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">end_user</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">title</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">Connect a domain you already own</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">summary</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">Point an existing domain at your project from project settings.</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">route</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">/project/:id/domains</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">requires</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  plan</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">pro</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">business</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">]</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">sources</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">src/app/project/[id]/domains/page.tsx</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  - </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">src/lib/cloudflare/attach.ts</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">extracted</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  at</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">2026-08-18</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  model</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">claude-opus-5</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  area_hash</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">4f1c9a…</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">  git_sha</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">a3f9c21</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">confidence</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">high</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">---</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Open </span><span style="--shiki-light:#24292E;--shiki-light-font-weight:bold;--shiki-dark:#E1E4E8;--shiki-dark-font-weight:bold">**Project settings → Domains**</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, choose </span><span style="--shiki-light:#24292E;--shiki-light-font-weight:bold;--shiki-dark:#E1E4E8;--shiki-dark-font-weight:bold">**Add existing domain**</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, and enter the domain name.</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Copy the two DNS records shown and add them at your registrar…</span></span></code></pre><h2>Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>id</code></td>
+<td>yes</td>
+<td>Stable identity, <code>&lt;area&gt;/&lt;slug&gt;</code>. Survives rewording; used for dedup and gap linking.</td>
+</tr>
+<tr>
+<td><code>area</code></td>
+<td>yes</td>
+<td>Which configured area produced it.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>yes</td>
+<td>One of the eight types below.</td>
+</tr>
+<tr>
+<td><code>audience</code></td>
+<td>yes</td>
+<td><code>end_user</code>, <code>operator</code> or <code>developer</code>. Retrieval filters on it.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>yes</td>
+<td>Human title. Indexed at triple weight.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td>yes</td>
+<td>One sentence. Indexed at double weight; shown in listings.</td>
+</tr>
+<tr>
+<td><code>route</code></td>
+<td>no</td>
+<td>The reader-visible path, dynamic segments as <code>:name</code>.</td>
+</tr>
+<tr>
+<td><code>requires</code></td>
+<td>no</td>
+<td><code>plan</code> / <code>role</code> / <code>flag</code> lists that gate the fact.</td>
+</tr>
+<tr>
+<td><code>sources</code></td>
+<td>yes</td>
+<td>Repo-relative paths this was derived from. The audit trail.</td>
+</tr>
+<tr>
+<td><code>extracted</code></td>
+<td>yes</td>
+<td>Provenance: date, model, area hash, commit. Drives staleness.</td>
+</tr>
+<tr>
+<td><code>confidence</code></td>
+<td>yes</td>
+<td><code>high</code>, <code>medium</code> or <code>low</code>. <code>low</code> is quarantined from answers by default.</td>
+</tr>
+</tbody></table>
+<h3><code>route</code> and <code>requires</code> are the interesting ones</h3>
+<p>No documentation-grounded tool can fill these, because no article has them. A route means the
+assistant can hand the reader a working link rather than describing where to click, and it means
+the same question can be answered differently depending on the screen they are on. A gate means a
+fact about a Business feature never reaches a Free user — telling them how to use something they
+cannot reach is worse than saying nothing.</p>
+<p>The extractor fills <code>requires</code> only when the code gates the thing explicitly. A guess there
+silently hides a fact from people who should see it, so the instruction is to leave it empty
+unless the gate is in the source.</p>
+<h2>The eight types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>feature</code></td>
+<td>A capability that exists.</td>
+</tr>
+<tr>
+<td><code>workflow</code></td>
+<td>An ordered way to accomplish something; steps in order in the body.</td>
+</tr>
+<tr>
+<td><code>concept</code></td>
+<td>A term or model the reader needs to use the product.</td>
+</tr>
+<tr>
+<td><code>ui_location</code></td>
+<td>Where something lives in the interface.</td>
+</tr>
+<tr>
+<td><code>faq</code></td>
+<td>A question users actually ask, with its answer.</td>
+</tr>
+<tr>
+<td><code>boundary</code></td>
+<td>Something the product does <strong>not</strong> or <strong>cannot</strong> do, and the alternative if one exists.</td>
+</tr>
+<tr>
+<td><code>policy</code></td>
+<td>A rule that affects the reader: limits, quotas, retention, billing behaviour.</td>
+</tr>
+<tr>
+<td><code>troubleshooting</code></td>
+<td>A symptom, its likely cause, and what to try next.</td>
+</tr>
+</tbody></table>
+<div class="callout tint-brand"><div class="callout-label">Important</div><div class="callout-body"><p><code>boundary</code> is the type that earns the product its promise. Most wrong answers in this category
+are not hallucinated features — they are a confident <em>yes</em> to something the product refuses. The
+extraction prompt mines guards, plan checks, validation errors and unsupported branches as hard
+as it mines capabilities.</p>
+</div></div><h2>What never appears in the text</h2>
+<p>For <code>end_user</code> and <code>operator</code> audiences, <code>title</code>, <code>summary</code> and <code>body</code> may not contain repository
+names, file paths, function or class names, database tables, environment variables, internal API
+routes, queue or cron identifiers, or developer tooling. Paths live in <code>sources</code> and nowhere else.</p>
+<p>Interface strings go the other way: they are quoted <strong>exactly</strong> as the code renders them —
+<strong>Add existing domain</strong>, <strong>Save Changes</strong>, <strong>Total must equal 100% to save changes</strong> — because that
+is the string the reader has to find on screen. They are never translated, even when the answer
+around them is in another language.</p>
+<h2>Provenance and staleness</h2>
+<p><code>extracted.area_hash</code> is a digest of every source file in the area — sorted paths plus contents, so
+a rename changes it too. <code>kira status</code> compares it against the current files and reports <code>fresh</code>,
+<code>stale</code>, or <code>not yet run</code>.</p>
+<p>An area that legitimately produced zero facts is indistinguishable from one that was never
+extracted, so the run is also recorded in <code>.kira/extracted.json</code>. Commit that file with the rest.</p>
+d:["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"The knowledge format\",\"description\":\"One fact per file: frontmatter, body, and the fields that make it an in-product assistant — route, requires, sources, provenance, confidence, and eight fact types.\",\"url\":\"https://mirawision.github.io/kira-agent/docs/knowledge-format/\",\"author\":{\"@id\":\"https://mirawision.github.io/kira-agent/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/kira-agent/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Knowledge format"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"The knowledge format"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$16"}}],"$L17"]}]
+17:["$","nav",null,{"className":"mt-14 flex justify-between gap-4 border-line border-t pt-6 font-mono text-[13px]","children":[["$","$L2",null,{"className":"text-muted hover:text-ink","href":"/docs/areas/","children":["← ","Areas"]}],["$","$L2",null,{"className":"text-muted hover:text-ink","href":"/docs/configuration/","children":["Configuration"," →"]}]]}]

@@ -1,0 +1,83 @@
+1:"$Sreact.fragment"
+2:I[22016,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],""]
+3:T1263,<p>Retrieval decides what the assistant may know. The answering contract decides what it may say.</p>
+<h2>Retrieved facts are the only source</h2>
+<p>Everything KIRA states about your product comes from the facts retrieved for that question. Not
+from the model&#39;s general knowledge of how products like yours usually work, and not from what
+seems reasonable given the rest of the conversation.</p>
+<p>When the facts do not answer what was asked, it says so. That trade is made the same way every
+time, and it is worth stating plainly because it is the whole product:</p>
+<div class="callout callout-quote"><div class="callout-body"><p>An honest &quot;I don&#39;t have that&quot; costs the reader one follow-up. A plausible walkthrough of a
+screen that does not exist costs them their afternoon and their trust in you.</p>
+</div></div><p>Concretely, and including when the retrieved facts are merely adjacent to the question rather than
+about it, the assistant will not invent buttons, links, tabs, screens, wizard steps or labels; will
+not imply it checked the product; will not answer a yes/no capability question unless a fact
+settles it; and will not stretch a related fact into instructions.</p>
+<h2>Boundaries lead the answer</h2>
+<p>When the reader asks whether something is possible and a fact settles it, the <strong>first sentence</strong>
+answers yes or no. The alternative comes after it, never before.</p>
+<p>This is a specific rule for a specific observed failure. Asked &quot;can I transfer my domain
+registration here?&quot;, an assistant with the right <code>boundary</code> fact in hand will still happily open
+with the steps for a <em>different</em> workflow — pointing a domain you already own — and never say the
+word no. A reader who skims the first line then walks away believing the opposite of the truth.</p>
+<div class="callout tint-flag"><div class="callout-label">Warning</div><div class="callout-body"><p>This behaviour is prompt-tuned, not guaranteed. In testing, six of seven samples led correctly
+after the instruction was added — which is exactly the sample size that proves nothing. The
+judge in v0.2 exists because this class of error is intermittent, and a manual spot-check will
+sign off on a prompt that fails one time in five.</p>
+</div></div><h2>Language</h2>
+<p>Under <code>assistant.language: mirror</code>, the answer is written in the language of the reader&#39;s message
+— including regional variants — while <strong>interface labels stay exactly as the facts record them</strong>.</p>
+<p>That split is deliberate. Prose in your reader&#39;s language is what makes the answer usable; a
+translated button label is what makes it useless, because they then cannot find the button. A
+label may be glossed once in their language, but it is quoted in the product&#39;s.</p>
+<p>The question is separately rewritten for retrieval (see <a href="/kira-agent/docs/retrieval/">Retrieval</a>),
+but the answer is generated from the reader&#39;s own words, so their framing survives.</p>
+<h2>What it never says</h2>
+<p>No file paths, function names, internal routes, table names or repository names — even when one
+appears in a retrieved fact, and even when the reader asks in technical terms. The reader cannot
+open the code; naming the code tells them nothing and leaks your internals into a support channel.</p>
+<p>It also does not mention the facts, the knowledge base, retrieval, or where the information came
+from. It writes as your product&#39;s own help, not as a system reporting on itself.</p>
+<h2>Follow-ups</h2>
+<p>At most one, and only when the retrieved facts clearly also cover that next step, and only when
+the main answer was a real answer. If it just said it was unsure, it stops there.</p>
+<p>The test the prompt applies: if the honest reply to the follow-up it is about to offer would be
+&quot;I don&#39;t have that&quot;, it does not offer it. An assistant that ends every uncertain answer with a
+cheerful &quot;want me to explain how X works?&quot; — where X is something it also cannot explain — turns
+one gap into two.</p>
+<h2>When nothing matches</h2>
+<p>The assistant is still asked to answer, with an explicit note that no facts matched. That is
+deliberate: it replies in the reader&#39;s language, tells them it does not have reliable information,
+and points them somewhere real — the product itself, their team, or support — without naming
+controls it cannot verify.</p>
+<p>On the caller&#39;s side, <code>no_match: true</code> comes back in <code>--json</code>. Log it. Those questions are the
+documentation backlog, and they are also product intelligence: what users cannot find is a UX
+finding, not only a content one.</p>
+7:X
+c:X
+c:C
+0:{"buildId":"PMscumRyEY9fTxKmuYl6y","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"The answering contract\",\"description\":\"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first.\",\"url\":\"https://mirawision.github.io/kira-agent/docs/answering/\",\"author\":{\"@id\":\"https://mirawision.github.io/kira-agent/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/kira-agent/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Answering"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"The answering contract"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}],"$L4"]}],null,"$L5"]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$7","varyParams":null},{"rsc":"$La","isPartial":"$@b","staleTime":"$7","varyParams":"$c"},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$7","varyParams":"$c"},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
+13:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"OutletBoundary"]
+14:"$Sreact.suspense"
+16:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"ViewportBoundary"]
+17:I[97367,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"MetadataBoundary"]
+18:I[27201,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"IconMark"]
+19:I[39756,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"default"]
+1a:I[37457,["/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js"],"default"]
+:HL["/kira-agent/_next/static/chunks/1n6s678u8fr89.css","style"]
+4:["$","nav",null,{"className":"mt-14 flex justify-between gap-4 border-line border-t pt-6 font-mono text-[13px]","children":[["$","$L2",null,{"className":"text-muted hover:text-ink","href":"/docs/retrieval/","children":["← ","Retrieval"]}],["$","$L2",null,{"className":"text-muted hover:text-ink","href":"/docs/roadmap/","children":["Roadmap"," →"]}]]}]
+5:["$","$L13",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@15"}]}]
+8:["$","$1","h",{"children":[null,["$","$L16",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L17",null,{"children":["$","$14",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"The answering contract — KIRA"}],["$","meta","1",{"name":"description","content":"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first."}],["$","meta","2",{"name":"robots","content":"index, follow, max-image-preview:large"}],["$","link","3",{"rel":"canonical","href":"https://mirawision.github.io/kira-agent/docs/answering/"}],["$","meta","4",{"property":"og:title","content":"The answering contract — KIRA"}],["$","meta","5",{"property":"og:description","content":"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first."}],["$","meta","6",{"property":"og:url","content":"https://mirawision.github.io/kira-agent/docs/answering/"}],["$","meta","7",{"property":"og:site_name","content":"KIRA"}],["$","meta","8",{"property":"og:type","content":"article"}],["$","meta","9",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","10",{"name":"twitter:title","content":"The answering contract — KIRA"}],["$","meta","11",{"name":"twitter:description","content":"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first."}],["$","link","12",{"rel":"icon","href":"/kira-agent/icon.svg","type":"image/svg+xml"}],["$","$L18","13",{}]]}]}]}],null]}]
+a:["$","$1","c",{"children":[null,["$","$L19",null,{"parallelRouterKey":"children","template":["$","$L1a",null,{}]}]]}]
+d:["$","$1","c",{"children":[null,["$","$L19",null,{"parallelRouterKey":"children","template":["$","$L1a",null,{}]}]]}]
+f:["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/kira-agent/_next/static/chunks/1n6s678u8fr89.css","precedence":"next"}],["$","script","script-0",{"src":"/kira-agent/_next/static/chunks/1mpnoxox0-4cg.js","async":true}]],["$","html",null,{"lang":"en","children":["$","body",null,{"className":"flex min-h-screen flex-col bg-canvas text-[17px] leading-[1.65]","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://mirawision.github.io/kira-agent/#org\",\"name\":\"MiraWision\",\"url\":\"https://github.com/MiraWision\"},{\"@type\":\"SoftwareApplication\",\"@id\":\"https://mirawision.github.io/kira-agent/#software\",\"name\":\"KIRA\",\"description\":\"KIRA turns a codebase into a maintained knowledge base about your product, then answers your users' questions from it — in their language, grounded in what the code does, and never invented.\",\"applicationCategory\":\"DeveloperApplication\",\"operatingSystem\":\"Node.js 20+\",\"url\":\"https://mirawision.github.io/kira-agent\",\"codeRepository\":\"https://github.com/MiraWision/kira-agent\",\"license\":\"https://opensource.org/licenses/MIT\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}}]}"}}],["$","header",null,{"className":"sticky top-0 z-30 border-line border-b bg-canvas/85 backdrop-blur","children":["$","div",null,{"className":"mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3.5","children":[["$","$L2",null,{"className":"font-mono font-semibold text-[17px] tracking-[0.04em] text-ink no-underline","href":"/","children":"KIRA"}],["$","nav",null,{"className":"flex items-center gap-5 font-mono text-[13px]","children":[["$","$L2",null,{"className":"text-muted transition-colors hover:text-ink","href":"/docs/","children":"Docs"}],["$","$L2",null,{"className":"text-muted transition-colors hover:text-ink","href":"/docs/roadmap/","children":"Roadmap"}],["$","a",null,{"className":"flex items-center gap-1.5 text-muted transition-colors hover:text-ink","href":"https://github.com/MiraWision/kira-agent","rel":"noreferrer","target":"_blank","children":[["$","svg",null,{"aria-hidden":"true","width":16,"height":16,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":1.6,"strokeLinecap":"round","strokeLinejoin":"round","dangerouslySetInnerHTML":{"__html":"<path d=\"M9 19.5c-4 1.2-4-2.2-5.5-2.7m11 5v-3.3c0-.9.1-1.3-.5-1.8 2.5-.3 5-1.2 5-5.5a4.3 4.3 0 0 0-1.2-3c.1-.3.5-1.5-.1-3.1 0 0-1-.3-3.2 1.2a11 11 0 0 0-5.8 0C6.5 4.8 5.5 5.1 5.5 5.1c-.6 1.6-.2 2.8-.1 3.1a4.3 4.3 0 0 0-1.2 3c0 4.3 2.5 5.2 5 5.5-.4.4-.5.9-.5 1.6v3.5\"/>"}}],"GitHub"]}]]}]]}]}],["$","main",null,{"className":"flex-1","children":["$","$L19",null,{"parallelRouterKey":"children","template":["$","$L1a",null,{}],"notFound":[["$","div",null,{"className":"mx-auto flex max-w-2xl flex-col gap-4 px-6 py-24","children":[["$","p",null,{"className":"font-mono text-[11px] text-muted uppercase tracking-[0.14em]","children":"404"}],["$","h1",null,{"className":"font-semibold text-3xl","children":"No page here"}],["$","p",null,{"className":"text-ink-2","children":"That address does not exist on this site. The documentation index is probably where you were heading."}],["$","$L2",null,{"className":"font-mono text-[14px] text-brand underline underline-offset-4","href":"/docs/","children":"Go to the docs →"}]]}],[]]}]}],["$","footer",null,{"className":"border-line border-t","children":["$","div",null,{"className":"mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-[14px] text-muted","children":[["$","p",null,{"children":[["$","b",null,{"className":"font-mono font-semibold text-ink","children":"KIRA"}]," — Knowledge Interface for Reliable Answers. MIT licensed."]}],["$","p",null,{"children":["Design notes and the full format reference live in"," ",["$","a",null,{"className":"text-ink underline underline-offset-2","href":"https://github.com/MiraWision/kira-agent/blob/main/SPEC.md","rel":"noreferrer","target":"_blank","children":"SPEC.md"}],"."]}]]}]}]]}]}]]}]
+15:null
+12:true
+7:300
+7:C
+11:0
+9:"$undefined"
+b:"$undefined"
+e:"$undefined"
+10:"$undefined"
+6:"$undefined"
