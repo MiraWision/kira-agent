@@ -36,7 +36,7 @@ export default function DocsIndex() {
             key={doc.slug}
           >
             <div className="flex items-center gap-2.5">
-              <span className="text-brand">
+              <span className="text-brand-ink">
                 <Icon name={doc.icon} size={20} />
               </span>
               <span className="font-mono text-[11px] text-muted tabular-nums">

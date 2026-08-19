@@ -29,7 +29,7 @@ export function Demo() {
     <div className="overflow-hidden rounded-lg border border-line bg-surface shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 border-line border-b bg-canvas px-4 py-2.5">
         <span className="font-mono text-[13px] text-ink-2">
-          KIRA · knowledge base: <code className="text-brand">domains</code> · 2 facts
+          KIRA · knowledge base: <code className="text-brand-ink">domains</code> · 2 facts
         </span>
         <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[11px] text-muted uppercase tracking-[0.07em]">
           recorded session
@@ -44,7 +44,7 @@ export function Demo() {
                 aria-pressed={i === index}
                 className={`cursor-pointer rounded-full border px-3 py-1.5 text-left font-mono text-[12px] transition-colors ${
                   i === index
-                    ? "border-brand bg-brand/10 text-brand"
+                    ? "border-brand bg-brand/10 text-brand-ink"
                     : "border-line text-ink-2 hover:border-brand hover:text-ink"
                 }`}
                 key={s.label}
@@ -93,7 +93,7 @@ export function Demo() {
                   <span className={i === 0 ? "text-ink-2 break-all" : "text-muted break-all"}>
                     {hit.id}
                   </span>
-                  <span className={`tabular-nums ${i === 0 ? "text-brand" : "text-muted"}`}>
+                  <span className={`tabular-nums ${i === 0 ? "text-brand-ink" : "text-muted"}`}>
                     {hit.score.toFixed(2)}
                   </span>
                 </div>

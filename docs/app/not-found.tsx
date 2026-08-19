@@ -9,7 +9,7 @@ export default function NotFound() {
         That address does not exist on this site. The documentation index is probably where you
         were heading.
       </p>
-      <Link className="font-mono text-[14px] text-brand underline underline-offset-4" href="/docs/">
+      <Link className="font-mono text-[14px] text-brand-ink underline underline-offset-4" href="/docs/">
         Go to the docs →
       </Link>
     </div>

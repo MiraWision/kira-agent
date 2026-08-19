@@ -17,11 +17,21 @@
   --color-surface: #ffffff;
   --color-canvas: #fafbfb;
 
-  /* One accent: deep petrol. Where the page wants you to look. */
-  --color-brand: #0d6e66;
+  /* One accent: terracotta. `--color-brand` is the fill you see on buttons,
+     chips and bars; `--color-brand-ink` is the darker sibling used wherever the
+     accent carries text, because #d97757 on white is 3.1:1 and AA wants 4.5. */
+  --color-brand: #d97757;
+  --color-brand-ink: #b4502c;
+  /* Fixed in both themes: the fill is the same colour in both, and white on it
+     is 3.1:1 while this is 5.7:1. */
+  --color-on-brand: #12191c;
 
-  /* Semantic, not decorative — `boundary` is the product's signature fact type
-     (what it cannot do), so it gets a colour of its own. */
+  /* Semantic, not decorative. `boundary` is the product's signature fact type
+     (what it cannot do) and its chips sit right next to accent chips, so it
+     takes the hue furthest from terracotta rather than a neighbouring warm. */
+  --color-boundary: #0d6e66;
+
+  /* Documentation warnings only — never adjacent to a boundary chip. */
   --color-flag: #8a5610;
 }
 
@@ -37,8 +47,11 @@
     --color-line: #253235;
     --color-surface: #151d20;
     --color-canvas: #0e1416;
-    /* Lifted for contrast on a near-black canvas; same roles. */
-    --color-brand: #5acfc0;
+    /* On a near-black canvas the accent already clears AA at 5.95:1, so the
+       fill and the text variant are the same colour here. */
+    --color-brand: #d97757;
+    --color-brand-ink: #d97757;
+    --color-boundary: #5acfc0;
     --color-flag: #e0a85c;
   }
 }
@@ -101,7 +114,7 @@ h1, h2, h3, h4 {
 .prose-site {
   --tw-prose-body: var(--color-ink-2);
   --tw-prose-headings: var(--color-ink);
-  --tw-prose-links: var(--color-brand);
+  --tw-prose-links: var(--color-brand-ink);
   --tw-prose-bold: var(--color-ink);
   --tw-prose-code: var(--color-ink);
   --tw-prose-quotes: var(--color-ink-2);
@@ -155,7 +168,7 @@ h1, h2, h3, h4 {
   border-left-color: var(--color-brand);
   background: color-mix(in oklab, var(--color-brand) 7%, transparent);
 }
-.callout.tint-brand .callout-label { color: var(--color-brand); }
+.callout.tint-brand .callout-label { color: var(--color-brand-ink); }
 .callout.tint-flag {
   border-left-color: var(--color-flag);
   background: color-mix(in oklab, var(--color-flag) 9%, transparent);

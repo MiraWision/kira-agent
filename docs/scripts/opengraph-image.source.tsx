@@ -32,14 +32,14 @@ export default function OpengraphImage() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-        <div style={{ display: "flex", width: 44, height: 44, borderRadius: 10, background: "#5ACFC0" }} />
+        <div style={{ display: "flex", width: 44, height: 44, borderRadius: 10, background: "#D97757" }} />
         <div style={{ display: "flex", fontSize: 34, letterSpacing: 3 }}>KIRA</div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {line("Your help center goes stale", "#E6EDEE")}
         {line("the day you ship.", "#E6EDEE")}
-        {line("KIRA reads your code instead.", "#5ACFC0")}
+        {line("KIRA reads your code instead.", "#D97757")}
       </div>
 
       <div style={{ display: "flex", fontSize: 26, color: "#8FA1A5" }}>

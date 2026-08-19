@@ -68,7 +68,7 @@ export default function Home() {
       <section className="border-line border-b">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-16 md:py-24">
           <div className="flex flex-wrap gap-2 font-mono text-[11px] uppercase tracking-[0.08em]">
-            <span className="rounded-full border border-brand bg-brand/10 px-2.5 py-1 text-brand">
+            <span className="rounded-full border border-brand bg-brand/10 px-2.5 py-1 text-brand-ink">
               v0.1 · in development
             </span>
             <span className="rounded-full border border-line px-2.5 py-1 text-muted">MIT</span>
@@ -82,7 +82,7 @@ export default function Home() {
 
           <h1 className="max-w-4xl font-semibold text-[clamp(2rem,5vw,3.1rem)] leading-[1.12] tracking-[-0.035em]">
             Your help center goes stale the day you ship.{" "}
-            <span className="text-brand">KIRA reads your code instead.</span>
+            <span className="text-brand-ink">KIRA reads your code instead.</span>
           </h1>
 
           <p className="max-w-[54ch] text-[19px] text-ink-2">{SITE_DESCRIPTION}</p>
@@ -92,7 +92,7 @@ export default function Home() {
               <span className="select-none text-muted">$ </span>npm install -g askkira
             </code>
             <Link
-              className="rounded-md bg-brand px-4 py-2.5 font-mono text-[13px] text-canvas no-underline transition-[filter] hover:brightness-110"
+              className="rounded-md bg-brand px-4 py-2.5 font-mono text-[13px] text-on-brand no-underline transition-[filter] hover:brightness-110"
               href="/docs/quick-start/"
             >
               Quickstart
@@ -171,8 +171,8 @@ confidence: high`}</pre>
                 <span
                   className={`w-fit rounded border px-1.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.07em] ${
                     card.flag
-                      ? "border-flag bg-flag/10 text-flag"
-                      : "border-brand bg-brand/10 text-brand"
+                      ? "border-boundary bg-boundary/10 text-boundary"
+                      : "border-brand bg-brand/10 text-brand-ink"
                   }`}
                 >
                   {card.chip}
@@ -229,7 +229,7 @@ confidence: high`}</pre>
                 }`}
                 key={stage.cmd}
               >
-                <span className="font-mono text-[11px] text-brand uppercase tracking-[0.1em]">
+                <span className="font-mono text-[11px] text-brand-ink uppercase tracking-[0.1em]">
                   {stage.cmd}
                   {stage.soon ? " · v0.2" : ""}
                 </span>
@@ -281,7 +281,7 @@ confidence: high`}</pre>
                 href={`/docs/${doc.slug}/`}
                 key={doc.slug}
               >
-                <span className="text-brand">
+                <span className="text-brand-ink">
                   <Icon name={doc.icon} size={20} />
                 </span>
                 <h3 className="font-semibold text-[15px] text-ink">{doc.label}</h3>
