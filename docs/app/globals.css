@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Monospace carries the headings: this tool's output is text files and
+     terminal sessions, so its own vernacular is the display face. A serif sets
+     running prose, because the docs are read, not scanned. */
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono",
+    "Cascadia Mono", Menlo, Consolas, monospace;
+  --font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+
+  /* Neutrals biased toward the accent, so the greys read as chosen. */
+  --color-ink: #12191c;
+  --color-ink-2: #3d4c51;
+  --color-muted: #5c6b70;
+  --color-line: #dce4e5;
+  --color-surface: #ffffff;
+  --color-canvas: #fafbfb;
+
+  /* One accent: deep petrol. Where the page wants you to look. */
+  --color-brand: #0d6e66;
+
+  /* Semantic, not decorative — `boundary` is the product's signature fact type
+     (what it cannot do), so it gets a colour of its own. */
+  --color-flag: #8a5610;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ink: #e6edee;
+    --color-ink-2: #c0cdd0;
+    --color-muted: #8fa1a5;
+    --color-line: #253235;
+    --color-surface: #151d20;
+    --color-canvas: #0e1416;
+    /* Lifted for contrast on a near-black canvas; same roles. */
+    --color-brand: #5acfc0;
+    --color-flag: #e0a85c;
+  }
+}
+
+html {
+  background: var(--color-canvas);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Shiki emits both themes as custom properties; pick one per colour scheme. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}
+.shiki {
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* Markdown-rendered docs mapped onto the site palette. */
+.prose-site {
+  --tw-prose-body: var(--color-ink-2);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-brand);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-quotes: var(--color-ink-2);
+  --tw-prose-quote-borders: var(--color-line);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-td-borders: var(--color-line);
+  --tw-prose-bullets: var(--color-muted);
+  --tw-prose-counters: var(--color-muted);
+}
+.prose-site :where(h2, h3, h4) {
+  font-family: var(--font-mono);
+}
+.prose-site :where(code):not(:where(pre code)) {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: color-mix(in oklab, var(--color-brand) 10%, transparent);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+}
+.prose-site :where(code):not(:where(pre code))::before,
+.prose-site :where(code):not(:where(pre code))::after {
+  content: none;
+}
+.prose-site :where(pre) {
+  background: transparent;
+  padding: 0;
+}
+.prose-site :where(table) {
+  font-size: 0.9375em;
+}
+
+/* Callouts, from GitHub alert syntax in the markdown source. */
+.callout {
+  border-left: 2px solid var(--color-line);
+  background: var(--color-canvas);
+  border-radius: 0 6px 6px 0;
+  padding: 0.85rem 1rem;
+  margin: 1.5rem 0;
+}
+.callout .callout-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.35rem;
+}
+.callout .callout-body > :first-child { margin-top: 0; }
+.callout .callout-body > :last-child { margin-bottom: 0; }
+.callout.tint-brand {
+  border-left-color: var(--color-brand);
+  background: color-mix(in oklab, var(--color-brand) 7%, transparent);
+}
+.callout.tint-brand .callout-label { color: var(--color-brand); }
+.callout.tint-flag {
+  border-left-color: var(--color-flag);
+  background: color-mix(in oklab, var(--color-flag) 9%, transparent);
+}
+.callout.tint-flag .callout-label { color: var(--color-flag); }
+.callout.callout-quote .callout-label { display: none; }
