@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
 2:I[22016,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],""]
-3:T1285,<p>Retrieval decides what the assistant may know. The answering contract decides what it may say.</p>
+3:T1255,<p>Retrieval decides what the assistant may know. The answering contract decides what it may say.</p>
 <h2>Retrieved facts are the only source</h2>
 <p>Everything KIRA states about your product comes from the facts retrieved for that question. Not
 from the model&#39;s general knowledge of how products like yours usually work, and not from what
@@ -30,7 +30,7 @@ sign off on a prompt that fails one time in five.</p>
 <p>That split is deliberate. Prose in your reader&#39;s language is what makes the answer usable; a
 translated button label is what makes it useless, because they then cannot find the button. A
 label may be glossed once in their language, but it is quoted in the product&#39;s.</p>
-<p>The question is separately rewritten for retrieval (see <a href="https://github.com/MiraWision/askkira/blob/main/../retrieval/">Retrieval</a>),
+<p>The question is separately rewritten for retrieval (see <a href="../retrieval/">Retrieval</a>),
 but the answer is generated from the reader&#39;s own words, so their framing survives.</p>
 <h2>What it never says</h2>
 <p>No file paths, function names, internal routes, table names or repository names — even when one
@@ -56,7 +56,7 @@ finding, not only a content one.</p>
 7:X
 c:X
 c:C
-0:{"buildId":"Br1kQoUXacrQZ7fwlmCXl","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"The answering contract\",\"description\":\"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first.\",\"url\":\"https://mirawision.github.io/askkira/docs/answering/\",\"author\":{\"@id\":\"https://mirawision.github.io/askkira/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/askkira/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Answering"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"The answering contract"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}],"$L4"]}],null,"$L5"]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$7","varyParams":null},{"rsc":"$La","isPartial":"$@b","staleTime":"$7","varyParams":"$c"},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$7","varyParams":"$c"},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
+0:{"buildId":"LxpZxzJp_yhRctqheVV68","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"The answering contract\",\"description\":\"What KIRA promises when it replies: retrieved facts as the only source, an honest refusal over a plausible walkthrough, verbatim interface labels, and boundaries first.\",\"url\":\"https://mirawision.github.io/askkira/docs/answering/\",\"author\":{\"@id\":\"https://mirawision.github.io/askkira/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/askkira/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Answering"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"The answering contract"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}],"$L4"]}],null,"$L5"]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$7","varyParams":null},{"rsc":"$La","isPartial":"$@b","staleTime":"$7","varyParams":"$c"},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$7","varyParams":"$c"},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
 13:I[97367,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],"OutletBoundary"]
 14:"$Sreact.suspense"
 16:I[97367,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],"ViewportBoundary"]

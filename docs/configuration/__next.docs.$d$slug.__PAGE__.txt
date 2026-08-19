@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
 2:I[22016,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],""]
-3:T2e2e,<p><code>.kira/config.yaml</code> is written by <code>kira init</code> and then edited by you. Everything except <code>areas</code> has
+3:T2dfe,<p><code>.kira/config.yaml</code> is written by <code>kira init</code> and then edited by you. Everything except <code>areas</code> has
 a working default.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">version</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span></span>
 <span class="line"></span>
@@ -66,7 +66,7 @@ a working default.</p>
 <h2><code>knowledge.language</code></h2>
 <p>The language the facts themselves are written in, which follows your code and its interface
 strings rather than your readers. It is the target of the rewrite hop described in
-<a href="https://github.com/MiraWision/askkira/blob/main/../retrieval/">Retrieval</a>: a question is translated into this language before it is
+<a href="../retrieval/">Retrieval</a>: a question is translated into this language before it is
 scored, because lexical matching cannot cross languages.</p>
 <h2><code>source</code></h2>
 <p><code>root</code> is where the areas&#39; <code>paths</code> are resolved from — point it at the app in a monorepo. <code>include</code>
@@ -107,7 +107,7 @@ scales with your codebase.</p>
 7:X
 c:X
 c:C
-0:{"buildId":"Br1kQoUXacrQZ7fwlmCXl","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"Configuration\",\"description\":\"Every key in .kira/config.yaml: the assistant's persona and language, source globs, per-stage models and effort, batching limits, and the area map itself.\",\"url\":\"https://mirawision.github.io/askkira/docs/configuration/\",\"author\":{\"@id\":\"https://mirawision.github.io/askkira/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/askkira/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Configuration"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"Configuration"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}],"$L4"]}],null,"$L5"]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$7","varyParams":null},{"rsc":"$La","isPartial":"$@b","staleTime":"$7","varyParams":"$c"},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$7","varyParams":"$c"},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
+0:{"buildId":"LxpZxzJp_yhRctqheVV68","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl px-6 py-16","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"TechArticle\",\"headline\":\"Configuration\",\"description\":\"Every key in .kira/config.yaml: the assistant's persona and language, source globs, per-stage models and effort, batching limits, and the area map itself.\",\"url\":\"https://mirawision.github.io/askkira/docs/configuration/\",\"author\":{\"@id\":\"https://mirawision.github.io/askkira/#org\"},\"about\":{\"@id\":\"https://mirawision.github.io/askkira/#software\"}}"}}],["$","nav",null,{"className":"mb-6 font-mono text-[13px] text-muted","children":[["$","$L2",null,{"className":"hover:text-ink","href":"/docs/","children":"Docs"}]," ","/ ","Configuration"]}],["$","h1",null,{"className":"mb-8 font-semibold text-[clamp(1.7rem,3.5vw,2.2rem)] tracking-[-0.03em]","children":"Configuration"}],["$","article",null,{"className":"prose prose-site max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}],"$L4"]}],null,"$L5"]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":"$L8","isPartial":"$@9","staleTime":"$7","varyParams":null},{"rsc":"$La","isPartial":"$@b","staleTime":"$7","varyParams":"$c"},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$7","varyParams":"$c"},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
 13:I[97367,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],"OutletBoundary"]
 14:"$Sreact.suspense"
 16:I[97367,["/askkira/_next/static/chunks/1mpnoxox0-4cg.js"],"ViewportBoundary"]
