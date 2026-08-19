@@ -42,7 +42,7 @@ That split is deliberate. Prose in your reader's language is what makes the answ
 translated button label is what makes it useless, because they then cannot find the button. A
 label may be glossed once in their language, but it is quoted in the product's.
 
-The question is separately rewritten for retrieval (see [Retrieval](/kira-agent/docs/retrieval/)),
+The question is separately rewritten for retrieval (see [Retrieval](../retrieval/)),
 but the answer is generated from the reader's own words, so their framing survives.
 
 ## What it never says

@@ -101,7 +101,7 @@ Re-extract changed areas on merge and open the result as a pull request, so gene
 reviewed by a person before it is ever served:
 
 ```yaml
-- run: npm install -g kira-knowledge
+- run: npm install -g askkira
 - run: kira extract
   env:
     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

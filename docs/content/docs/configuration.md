@@ -54,7 +54,7 @@ Interface labels stay verbatim under `mirror` — only the prose around them fol
 
 The language the facts themselves are written in, which follows your code and its interface
 strings rather than your readers. It is the target of the rewrite hop described in
-[Retrieval](/kira-agent/docs/retrieval/): a question is translated into this language before it is
+[Retrieval](../retrieval/): a question is translated into this language before it is
 scored, because lexical matching cannot cross languages.
 
 ## `source`

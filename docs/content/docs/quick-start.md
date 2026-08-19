@@ -6,7 +6,7 @@ Five minutes end to end. No database, no vector store, no second API key.
 ## Install
 
 ```bash
-npm install -g kira-knowledge
+npm install -g askkira
 export ANTHROPIC_API_KEY=sk-ant-…
 ```
 
@@ -45,7 +45,7 @@ $EDITOR .kira/config.yaml
 > [!IMPORTANT]
 > This is the ten minutes that matter. The area map is the highest-value human input in the whole
 > system. Merge what belongs together, delete what has nothing user-facing, and give each area a
-> name your users would recognise. See [Areas](/kira-agent/docs/areas/).
+> name your users would recognise. See [Areas](../areas/).
 
 ## 3. Extract
 
@@ -104,6 +104,6 @@ merge and the drift stays visible instead of silent.
 
 ## Where to go next
 
-- [Areas](/kira-agent/docs/areas/) — how to turn the proposed map into a good one.
-- [The knowledge format](/kira-agent/docs/knowledge-format/) — what a fact is made of.
-- [Command line](/kira-agent/docs/cli/) — every flag.
+- [Areas](../areas/) — how to turn the proposed map into a good one.
+- [The knowledge format](../knowledge-format/) — what a fact is made of.
+- [Command line](../cli/) — every flag.

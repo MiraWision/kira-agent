@@ -39,7 +39,7 @@ function blockquote(inner: string): string {
   ].join("");
 }
 
-const REPO_BLOB = "https://github.com/MiraWision/kira-agent/blob/main/";
+const REPO_BLOB = "https://github.com/MiraWision/askkira/blob/main/";
 
 interface RenderOptions {
   /** Rewrite repo-relative links (`SPEC.md`) to the file on GitHub. */

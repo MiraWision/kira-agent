@@ -16,14 +16,14 @@ product — it *is* the product.
 
 **Status: v0.1, in development.** `init`, `extract`, `status`, and `ask` work. The eval loop
 and the embeddable widget are next — see [SPEC.md](./SPEC.md) and the
-[roadmap](https://mirawision.github.io/kira-agent/docs/roadmap/).
+[roadmap](https://mirawision.github.io/askkira/docs/roadmap/).
 
 ---
 
 ## Quickstart
 
 ```bash
-npm install -g kira-knowledge
+npm install -g askkira
 export ANTHROPIC_API_KEY=sk-ant-...
 
 cd your-project
@@ -143,7 +143,7 @@ MIT. Design notes and roadmap in [SPEC.md](./SPEC.md).
 
 ## Documentation site
 
-**[mirawision.github.io/kira-agent](https://mirawision.github.io/kira-agent/)**
+**[mirawision.github.io/askkira](https://mirawision.github.io/askkira/)**
 
 `docs/` is a Next.js static export — the landing page plus eight reference pages,
 with content in `docs/content/docs/*.md`. The demo on the landing page is playback
@@ -151,6 +151,20 @@ of real recorded `kira ask` runs; nothing on the site is simulated.
 
 ```bash
 npm --prefix docs install
-npm --prefix docs run dev        # http://localhost:3000/kira-agent
+npm --prefix docs run dev        # http://localhost:3000/askkira
 npm --prefix docs run deploy     # build + publish to the gh-pages branch
 ```
+
+### Moving to askkira.dev
+
+The site is served from GitHub Project Pages, so every URL carries the repository
+name. Switching to the custom domain is three edits, and the docs content needs
+none of them — cross-links between doc pages are relative on purpose.
+
+1. `docs/next.config.ts` — delete the `basePath` line.
+2. `docs/lib/site.ts` — set `BASE_PATH` to `""` and `SITE_ORIGIN` to `https://askkira.dev`.
+3. `docs/public/CNAME` — create it containing `askkira.dev`.
+
+Then point the domain's DNS at GitHub Pages and run `npm --prefix docs run deploy`.
+Do this only once the DNS resolves: a CNAME on a domain that does not yet answer
+takes the site offline at the github.io address too.

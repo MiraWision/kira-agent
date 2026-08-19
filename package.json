@@ -1,11 +1,12 @@
 {
-  "name": "kira-knowledge",
+  "name": "askkira",
   "version": "0.1.0",
   "description": "KIRA — Knowledge Interface for Reliable Answers. Turns your codebase into a maintained product knowledge base your users can ask questions against.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "kira": "./dist/cli.js"
+    "kira": "./dist/cli.js",
+    "askkira": "./dist/cli.js"
   },
   "files": [
     "dist",

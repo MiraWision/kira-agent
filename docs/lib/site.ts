@@ -4,11 +4,11 @@
  * `next.config.ts`; a custom domain later means emptying both and adding a
  * CNAME to `public/`.
  */
-export const BASE_PATH = "/kira-agent";
+export const BASE_PATH = "/askkira";
 /**
  * Origin only. `metadataBase` must not include the base path: Next already
  * prefixes it onto file-convention metadata assets, and setting both produces
- * `/kira-agent/kira-agent/opengraph-image.png`.
+ * `/askkira/askkira/opengraph-image.png`.
  */
 export const SITE_ORIGIN = "https://mirawision.github.io";
 export const SITE_URL = `${SITE_ORIGIN}${BASE_PATH}`;
@@ -18,7 +18,7 @@ export const SITE_TITLE = "KIRA — answers about your product, read from your c
 export const SITE_DESCRIPTION =
   "KIRA turns a codebase into a maintained knowledge base about your product, then answers your users' questions from it — in their language, grounded in what the code does, and never invented.";
 
-export const REPO = "https://github.com/MiraWision/kira-agent";
+export const REPO = "https://github.com/MiraWision/askkira";
 /** Prefix a `public/` asset with the base path; Next does not do this for us. */
 export function asset(path: string): string {
   return `${BASE_PATH}${path}`;

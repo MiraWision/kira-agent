@@ -89,7 +89,7 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center gap-3">
             <code className="overflow-x-auto whitespace-nowrap rounded-md border border-line bg-surface px-3.5 py-2.5 font-mono text-[14px] text-ink">
-              <span className="select-none text-muted">$ </span>npm install -g kira-knowledge
+              <span className="select-none text-muted">$ </span>npm install -g askkira
             </code>
             <Link
               className="rounded-md bg-brand px-4 py-2.5 font-mono text-[13px] text-canvas no-underline transition-[filter] hover:brightness-110"
