@@ -61,8 +61,12 @@ async function parser(opts: RenderOptions = {}): Promise<Marked> {
       },
       link({ href, title, tokens }) {
         const inner = this.parser.parseInline(tokens);
-        const isRelative = !/^([a-z]+:|\/|#)/i.test(href);
-        const target = opts.repoLinks && isRelative ? `${REPO_BLOB}${href}` : href;
+        // A repo file (`SPEC.md`) should point at GitHub; a cross-link between doc
+        // pages (`../retrieval/`) must stay on the site. Routes are folder-style
+        // with a trailing slash and repo files never are, so that is the test.
+        const isRepoFile =
+          !/^([a-z]+:|\/|#)/i.test(href) && !href.endsWith("/");
+        const target = opts.repoLinks && isRepoFile ? `${REPO_BLOB}${href}` : href;
         const titleAttr = title ? ` title="${title}"` : "";
         return `<a href="${target}"${titleAttr}>${inner}</a>`;
       },
