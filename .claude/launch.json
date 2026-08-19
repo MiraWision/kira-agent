@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "kira-site",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4178", "--directory", "site"],
-      "port": 4178
+      "name": "kira-docs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "docs"],
+      "port": 3000
     }
   ]
 }

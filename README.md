@@ -15,7 +15,8 @@ product — it *is* the product.
 `KIRA` is the assistant's default name. Rename it per deployment; the tool is `kira`.
 
 **Status: v0.1, in development.** `init`, `extract`, `status`, and `ask` work. The eval loop
-and the embeddable widget are next — see [SPEC.md](./SPEC.md).
+and the embeddable widget are next — see [SPEC.md](./SPEC.md) and the
+[roadmap](https://mirawision.github.io/kira-agent/docs/roadmap/).
 
 ---
 
@@ -142,14 +143,14 @@ MIT. Design notes and roadmap in [SPEC.md](./SPEC.md).
 
 ## Documentation site
 
-`site/index.html` is the project's landing page and documentation — a single
-self-contained file with no build step, no dependencies and no external requests.
-Serve the folder anywhere static:
+**[mirawision.github.io/kira-agent](https://mirawision.github.io/kira-agent/)**
+
+`docs/` is a Next.js static export — the landing page plus eight reference pages,
+with content in `docs/content/docs/*.md`. The demo on the landing page is playback
+of real recorded `kira ask` runs; nothing on the site is simulated.
 
 ```bash
-python3 -m http.server 4178 --directory site
+npm --prefix docs install
+npm --prefix docs run dev        # http://localhost:3000/kira-agent
+npm --prefix docs run deploy     # build + publish to the gh-pages branch
 ```
-
-It deploys as-is to GitHub Pages, Vercel, Netlify or any bucket. The interactive
-demo on it is playback of real recorded `kira ask` runs against a two-fact
-knowledge base; nothing on the page is simulated.
