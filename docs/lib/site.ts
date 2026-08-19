@@ -4,13 +4,12 @@
  * `next.config.ts`; a custom domain later means emptying both and adding a
  * CNAME to `public/`.
  */
-export const BASE_PATH = "/askkira";
 /**
- * Origin only. `metadataBase` must not include the base path: Next already
- * prefixes it onto file-convention metadata assets, and setting both produces
- * `/askkira/askkira/opengraph-image.png`.
+ * Empty behind the custom domain. Kept as a constant rather than deleted so a
+ * move back to Project Pages is one edit here plus one in `next.config.ts`.
  */
-export const SITE_ORIGIN = "https://mirawision.github.io";
+export const BASE_PATH = "";
+export const SITE_ORIGIN = "https://askkira.dev";
 export const SITE_URL = `${SITE_ORIGIN}${BASE_PATH}`;
 
 export const SITE_NAME = "KIRA";

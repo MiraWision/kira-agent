@@ -16,7 +16,7 @@ product — it *is* the product.
 
 **Status: v0.1, in development.** `init`, `extract`, `status`, and `ask` work. The eval loop
 and the embeddable widget are next — see [SPEC.md](./SPEC.md) and the
-[roadmap](https://mirawision.github.io/askkira/docs/roadmap/).
+[roadmap](https://askkira.dev/docs/roadmap/).
 
 ---
 
@@ -143,7 +143,7 @@ MIT. Design notes and roadmap in [SPEC.md](./SPEC.md).
 
 ## Documentation site
 
-**[mirawision.github.io/askkira](https://mirawision.github.io/askkira/)**
+**[askkira.dev](https://askkira.dev)**
 
 `docs/` is a Next.js static export — the landing page plus eight reference pages,
 with content in `docs/content/docs/*.md`. The demo on the landing page is playback
@@ -151,20 +151,13 @@ of real recorded `kira ask` runs; nothing on the site is simulated.
 
 ```bash
 npm --prefix docs install
-npm --prefix docs run dev        # http://localhost:3000/askkira
+npm --prefix docs run dev        # http://localhost:3000
 npm --prefix docs run deploy     # build + publish to the gh-pages branch
 ```
 
-### Moving to askkira.dev
+### Domain
 
-The site is served from GitHub Project Pages, so every URL carries the repository
-name. Switching to the custom domain is three edits, and the docs content needs
-none of them — cross-links between doc pages are relative on purpose.
-
-1. `docs/next.config.ts` — delete the `basePath` line.
-2. `docs/lib/site.ts` — set `BASE_PATH` to `""` and `SITE_ORIGIN` to `https://askkira.dev`.
-3. `docs/public/CNAME` — create it containing `askkira.dev`.
-
-Then point the domain's DNS at GitHub Pages and run `npm --prefix docs run deploy`.
-Do this only once the DNS resolves: a CNAME on a domain that does not yet answer
-takes the site offline at the github.io address too.
+The site is served at `askkira.dev` via a CNAME in `docs/public/`. Moving back to
+Project Pages would be three edits: restore `basePath` in `docs/next.config.ts`,
+set `BASE_PATH` and `SITE_ORIGIN` in `docs/lib/site.ts`, and delete the CNAME.
+Cross-links in the docs content are relative, so they need no change either way.
