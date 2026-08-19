@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://mirawision.github.io/askkira/sitemap.xml
+Sitemap: https://askkira.dev/sitemap.xml
